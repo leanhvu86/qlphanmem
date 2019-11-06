@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="allSuites">
+  <suite-files>
+    <suite-file path="SuiteEmployee.xml" />
+     <suite-file path="SuiteStation.xml" />
+  </suite-files>
+</suite>

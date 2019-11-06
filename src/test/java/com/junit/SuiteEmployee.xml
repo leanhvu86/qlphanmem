@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="creatStaff" verbose="1">
+	<test name="TC_01">
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="name" value="NGuyên Vũ"></parameter>
+		<parameter name="phone" value="0945109262"></parameter>
+		<parameter name="email" value="leanhvu86@gmail.com"></parameter>
+		<parameter name="expected" value="true"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_02">
+		<parameter name="expected" value="false"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_03">
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="lastName" value="Trần Anh@"></parameter>
+		<parameter name="name" value="A"></parameter>
+		<parameter name="phone" value="09451092622312323"></parameter>
+		<parameter name="expected" value="false"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_04">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="lastName"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_05">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="email" value="vietldph05461@fpt.edu.vn"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_06">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="email" value="%leanhvu@gmail.com"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="name" value="Anh"></parameter>
+		<parameter name="phone" value="0945109264"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_07">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="name" value="Anh Vũ#"></parameter>
+		<parameter name="phone" value="0945109265"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_08">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com!"></parameter>
+		<parameter name="phone" value="0945109266212122"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_09">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ#"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="phone" value="0945109267#"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_10">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ"></parameter>
+		<parameter name="lastName"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="phone" value="0945109268"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_11">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="phone" value="0945109268"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_12">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="email" value="094510927"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_13">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="A"></parameter>
+		<parameter name="lastname"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<parameter name="phone" value="0945109271%"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_14">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần@"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<parameter name="phone" value="094510927"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_15">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+		<parameter name="phone" value="09451092731231"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_16">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="phone" value="094510927"></parameter>
+		<parameter name="name" value="Anh Vũ!"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_17">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="A"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_18">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="phone" value="0945109276"></parameter>
+		$
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_19">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ$"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<parameter name="phone" value="09451092771212112"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_20">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_21">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ$"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com^"></parameter>
+		<parameter name="phone" value="09451092771212112"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_22">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="phone" value="0945109280123432"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_23">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ"></parameter>
+		<parameter name="lastName" value="Trần ^"></parameter>
+		<parameter name="phone" value="0945109281%"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_24">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="lastName"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="phone" value="094510928223222"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_25">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="phone" value="0945109283"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_26">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="Anh Vũ$"></parameter>
+		<parameter name="phone" value="0945109284"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_27">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="phone" value="0945109285"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_28">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+		<parameter name="name" value="A"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<parameter name="phone" value="094510928"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_29">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="lastName" value="Trần @"></parameter>
+		<parameter name="name"
+			value="Tpoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuytrewqpoiuytrepoiuytrewqpoiuyt"></parameter>
+		<parameter name="email" value="leanhvu@gmail.com"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+	<test name="TC_30">
+		<parameter name="expected" value="false"></parameter>
+		<parameter name="name" value="T"></parameter>
+		<parameter name="lastName" value="T"></parameter>
+
+		<parameter name="phone" value="12345678"></parameter>
+		<classes>
+			<class name="com.junit.testEmployee"></class>
+		</classes>
+	</test>
+</suite>

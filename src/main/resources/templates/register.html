@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Kết nối Việt Nam</title>
+<link rel="shortcut icon" href="images/logo.ico">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/Assment.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/bootstrap.min.css" />
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-1.9.1.min.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro'
+	rel='stylesheet' type='text/css'>
+<link
+	href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<style>
+.error {
+	color: black;
+}
+
+td {
+	min-width: 30%%;
+	padding: 2%;
+}
+</style>
+</head>
+
+<body>
+	<div class="container">
+		<header
+			style="margin-bottom: 1%; height: 80px; color: rgb(41, 40, 40);">
+			<ul class="nav">
+				<li class="hm"><a th:href="@{/login}"><img class="icon"
+						src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-24.png"
+						alt="Login"></a></li>
+				<li class="fb"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-facebook-24.png"
+					alt="Facebook"></li>
+				<li class="gp"><img class="icon"
+					src="https://cdn3.iconfinder.com/data/icons/picons-social/57/40-google-plus-24.png"
+					alt="Google +"></li>
+				<li class="tw"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-twitter-24.png"
+					alt="Twitter"></li>
+				<li class="cl"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/phone-24.png"
+					alt="Liên hệ"></li>
+			</ul>
+
+		</header>
+		<nav style="margin-top: 0px; height: 320px;">
+			<div class="slider-container">
+				<div class="slider">
+					<img src="images/slider/anh1.png" title="Slide 1" /> <img
+						src="images/slider/anh2.png" title="Slide 2" /> <img
+						src="images/slider/anh3.png" title="Slide 3" /> <img
+						src="images/slider/anh4.png" title="Slide 4" /> <img
+						src="images/slider/anh5.png" title="Slide 5" />
+					<button type="button" onclick="getPrevImage()" class="btn"
+						id="btnPrev">&lt;</button>
+					<button type="button" onclick="getPrevImage()" class="btn"
+						id="btnNext">&gt;</button>
+					<h1 id="titleSlider">Slide Title 1</h1>
+				</div>
+
+			</div>
+		</nav>
+		<div>
+			<div>
+				<div class="parent2">
+					<div class="test1">
+						<i class="fa fa-user fa-2x"></i>
+					</div>
+					<div class="test2">
+						<i class="fa fa-star fa-2x"></i>
+					</div>
+					<div class="test3">
+						<i class="fa fa-code fa-2x"></i>
+					</div>
+					<div class="test4">
+						<a th:href="@{/}" style="color: white;"><i
+							class="fa fa-envelope-o fa-2x"></i></a>
+					</div>
+					<div class="mask2">
+						<i class="fa fa-home fa-3x"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container"
+			style="margin: 50px; border: 1px solid white; width: 80%; padding: 2%;">
+			<div style="width: 100%; padding: 2%;">
+
+				<h3>Đăng ký thẻ vé tháng</h3>
+				<div th:if="${message}">
+					<h2 th:text="${message}" />
+				</div>
+
+				<form th:action="@{/validate}" th:object="${passenger}"
+					method="post">
+					<table style="float: left; max-width: 68%; color: black;">
+						<tr style="display: none;">
+							<td>Id:</td>
+							<td><input type="text" name="id" th:field="*{id}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('id')}"
+								th:errors="*{id}"></td>
+						</tr>
+
+						<tr>
+							<td>Thẻ căn cước:</td>
+							<td><input type="text" name="id_card" th:field="*{id_card}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('id_card')}"
+								th:errors="*{id_card}">ID_Card Error</td>
+							<td class="error" th:unless="${#fields.hasErrors('id_card')}">
+							</td>
+						</tr>
+						<tr>
+							<td>Họ và tên:</td>
+							<td><input type="text" name="name" th:field="*{name}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('name')}"
+								th:errors="*{name}">Name Error</td>
+							<td class="error" th:unless="${#fields.hasErrors('name')}">
+							</td>
+						</tr>
+						<tr>
+							<td>Ngày sinh:</td>
+							<td><input type="text" name="birthday"
+								placeholder="dd/MM/yyyy" th:field="*{birthday}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('birthday')}"
+								th:errors="*{birthday}">Name Error</td>
+							<td class="error" th:unless="${#fields.hasErrors('birthday')}">
+							</td>
+						</tr>
+						<tr>
+							<td>Địa chỉ:</td>
+							<td><input type="text" name="address" th:field="*{address}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('address')}"
+								th:errors="*{address}">Lỗi email</td>
+								<td class="error" th:unless="${#fields.hasErrors('address')}">
+							</td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input type="text" name="email" th:field="*{email}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('email')}"
+								th:errors="*{email}">Lỗi email</td>
+								<td class="error" th:unless="${#fields.hasErrors('email')}">
+							</td>
+						</tr>
+						<tr style="display: none;">
+							<td>Status:</td>
+							<td><input type="number" name="status" th:field="*{status}"
+								value="1" /></td>
+							<td class="error" th:if="${#fields.hasErrors('status')}"
+								th:errors="*{status}">Lỗi status</td>
+						</tr>
+						<tr>
+							<td>Sinh viên:</td>
+							<td><input type="checkbox" name="student"
+								th:field="*{student}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('student')}"
+								th:errors="*{student}">Sinh viên Error</td>
+						</tr>
+						<tr>
+							<td>Nơi công tác:</td>
+							<td><input type="text" name="school" th:field="*{school}" /></td>
+							<td class="error" th:if="${#fields.hasErrors('school')}"
+								th:errors="*{school}">ID_Card Error</td>
+						</tr>
+						<tr>
+							<td>
+								<button type="submit" name="submitRegister">Submit</button>
+							</td>
+						</tr>
+					</table>
+					<div style="float: left; max-width: 30%; margin-left: 5%;">
+						<img src="#" id="blah"
+							style="float: left; max-width: 30%; margin-left: 2%;"> <input
+							type="file" id="fileChooser" name="file" onchange="readURL(this)" />
+
+					</div>
+				</form>
+			</div>
+		</div>
+		<div th:replace="/template/footer :: footer"></div>
+		<script src="js/assignment.js"></script>
+		<script>
+			var indexCurrent = 3; // Chỉ số hình đầu tiên hiển thị ở slide
+			var loop = true; // Bật lặp slide
+			var showbutton = true; // Hiện 2 button điều hướng
+			var duration = 4000; // Thời gian chờ chuyển hình (tính theo đơn vị milisecond)
+
+			initSlider();
+			$(document).ready(function() {
+
+				var active1 = false;
+				var active2 = false;
+				var active3 = false;
+				var active4 = false;
+
+				$('.parent2').on('mousedown touchstart', function() {
+
+					if (!active1)
+						$(this).find('.test1').css({
+							'background-color' : 'gray',
+							'transform' : 'translate(0px,125px)'
+						});
+					else
+						$(this).find('.test1').css({
+							'background-color' : 'dimGray',
+							'transform' : 'none'
+						});
+					if (!active2)
+						$(this).find('.test2').css({
+							'background-color' : 'gray',
+							'transform' : 'translate(60px,105px)'
+						});
+					else
+						$(this).find('.test2').css({
+							'background-color' : 'darkGray',
+							'transform' : 'none'
+						});
+					if (!active3)
+						$(this).find('.test3').css({
+							'background-color' : 'gray',
+							'transform' : 'translate(105px,60px)'
+						});
+					else
+						$(this).find('.test3').css({
+							'background-color' : 'silver',
+							'transform' : 'none'
+						});
+					if (!active4)
+						$(this).find('.test4').css({
+							'background-color' : 'gray',
+							'transform' : 'translate(125px,0px)'
+						});
+					else
+						$(this).find('.test4').css({
+							'background-color' : 'silver',
+							'transform' : 'none'
+						});
+					active1 = !active1;
+					active2 = !active2;
+					active3 = !active3;
+					active4 = !active4;
+
+				});
+			});
+
+			function readURL(input) {
+				if (input.files && input.files[0]) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$('#blah').attr('src', e.target.result);
+					}
+
+					reader.readAsDataURL(input.files[0]);
+					console.log(input.files[0])
+				}
+			}
+
+			$("#imgInp").change(function() {
+				readURL(this);
+			});
+		</script>
+	</div>
+</body>
+
+</html>

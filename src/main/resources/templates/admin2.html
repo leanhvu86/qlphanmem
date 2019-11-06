@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8" />
+	<title>Spring Boot + JPA + Datatables</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="/js/datatable.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen"
+	href="css/Assment.css" />
+</head>
+
+<body>
+<div class="container">
+<header
+			style="margin-bottom: 1%; height: 80px; color: rgb(41, 40, 40);">
+			<ul class="nav">
+				<li class="hm"><a th:href="@{/login}"><img class="icon"
+						src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-24.png"
+						alt="Login"></a></li>
+				<li class="fb"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-facebook-24.png"
+					alt="Facebook"></li>
+				<li class="gp"><img class="icon"
+					src="https://cdn3.iconfinder.com/data/icons/picons-social/57/40-google-plus-24.png"
+					alt="Google +"></li>
+				<li class="tw"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-twitter-24.png"
+					alt="Twitter"></li>
+				<li class="cl"><img class="icon"
+					src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/phone-24.png"
+					alt="Liên hệ"></li>
+			</ul>
+
+		</header>
+		
+		
+	<h1 style="color:white">Employees Table</h1>
+	<table id="employeesTable" class="display">
+      
+       <!-- Header Table -->
+       <thead>
+            <tr>
+                <th class="th">Id</th>
+				<th class="th">Name</th>
+                <th class="th">Last Name</th>
+                <th class="th">Email</th>
+                <th class="th">Phone</th>
+                <th class="th">Active</th>
+             
+            </tr>
+        </thead>
+        <!-- Footer Table -->
+        <tfoot>
+            <tr>
+                <th class="th">Id</th>
+				<th class="th">Name</th>
+                <th class="th">Last Name</th>
+                <th class="th">Email</th>
+                <th class="th">Phone</th>
+            
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+</body>
+</html>

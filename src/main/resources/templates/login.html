@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kết nối Việt Nam</title>
+    <link rel="shortcut icon" href="images/logo.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/Assment.css"/>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/bootstrap.min.css"/>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro'
+          rel='stylesheet' type='text/css'>
+    <link
+            href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700'
+            rel='stylesheet' type='text/css'>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="container">
+    <header
+            style="margin-bottom: 1%; height: 80px; color: rgb(41, 40, 40);">
+        <ul class="nav">
+            <li class="hm"><a th:href="@{/login}"><img class="icon"
+                                                       src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-24.png"
+                                                       alt="Login"></a></li>
+            <li class="fb"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-facebook-24.png"
+                                alt="Facebook"></li>
+            <li class="gp"><img class="icon"
+                                src="https://cdn3.iconfinder.com/data/icons/picons-social/57/40-google-plus-24.png"
+                                alt="Google +"></li>
+            <li class="tw"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-twitter-24.png"
+                                alt="Twitter"></li>
+            <li class="cl"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/phone-24.png"
+                                alt="Liên hệ"></li>
+        </ul>
+
+    </header>
+    <nav style="margin-top: 0px; height: 320px;">
+        <div class="slider-container">
+            <div class="slider">
+                <img src="images/slider/anh1.png" title="Slide 1"/> <img
+                    src="images/slider/anh2.png" title="Slide 2"/> <img
+                    src="images/slider/anh3.png" title="Slide 3"/> <img
+                    src="images/slider/anh4.png" title="Slide 4"/> <img
+                    src="images/slider/anh5.png" title="Slide 5"/>
+                <button type="button" onclick="getPrevImage()" class="btn"
+                        id="btnPrev">&lt;
+                </button>
+                <button type="button" onclick="getNextImage()" class="btn"
+                        id="btnNext">&gt;
+                </button>
+                <h1 id="titleSlider">Slide Title 1</h1>
+            </div>
+
+        </div>
+    </nav>
+    <div>
+        <div class="parent2">
+            <div class="test1">
+                <i class="fa fa-user fa-2x"></i>
+            </div>
+            <div class="test2">
+                <i class="fa fa-star fa-2x"></i>
+            </div>
+            <div class="test3">
+                <i class="fa fa-code fa-2x"></i>
+            </div>
+            <div class="test4">
+                <a th:href="@{/}" style="color: white;"><i class="fa fa-envelope-o fa-2x"></i></a>
+            </div>
+            <div class="mask2">
+                <i class="fa fa-home fa-3x"></i>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin: 50px; border: 1px solid white;width: 50%;padding:2%;">
+        <h3>Đăng nhập</h3>
+        <div th:if="${message}">
+            <a th:text="${message}" style="color:red;" id="errorMsg"></a>
+        </div>
+        <form action="/admin" method="post">
+            <div class="form-group">
+                <label for="username">Tài khoản:</label> <input type="text"
+                                                                class="form-control" id="username" name="username">
+
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label> <input type="password"
+                                                          class="form-control" id="pwd" name="password">
+            </div>
+
+            <button type="submit" class="btn btn-success">Đăng nhập</button>
+
+            <input type="hidden" name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+        </form>
+    </div>
+    <div th:replace="/template/footer :: footer"></div>
+    <script src="js/assignment.js"></script>
+    <script>
+        var indexCurrent = 3; // Chỉ số hình đầu tiên hiển thị ở slide
+        var loop = true; // Bật lặp slide
+        var showbutton = true; // Hiện 2 button điều hướng
+        var duration = 4000; // Thời gian chờ chuyển hình (tính theo đơn vị milisecond)
+
+        initSlider();
+        $(document).ready(function () {
+
+            var active1 = false;
+            var active2 = false;
+            var active3 = false;
+            var active4 = false;
+
+            $('.parent2').on('mousedown touchstart', function () {
+
+                if (!active1)
+                    $(this).find('.test1').css({
+                        'background-color': 'gray',
+                        'transform': 'translate(0px,125px)'
+                    });
+                else
+                    $(this).find('.test1').css({
+                        'background-color': 'dimGray',
+                        'transform': 'none'
+                    });
+                if (!active2)
+                    $(this).find('.test2').css({
+                        'background-color': 'gray',
+                        'transform': 'translate(60px,105px)'
+                    });
+                else
+                    $(this).find('.test2').css({
+                        'background-color': 'darkGray',
+                        'transform': 'none'
+                    });
+                if (!active3)
+                    $(this).find('.test3').css({
+                        'background-color': 'gray',
+                        'transform': 'translate(105px,60px)'
+                    });
+                else
+                    $(this).find('.test3').css({
+                        'background-color': 'silver',
+                        'transform': 'none'
+                    });
+                if (!active4)
+                    $(this).find('.test4').css({
+                        'background-color': 'gray',
+                        'transform': 'translate(125px,0px)'
+                    });
+                else
+                    $(this).find('.test4').css({
+                        'background-color': 'silver',
+                        'transform': 'none'
+                    });
+                active1 = !active1;
+                active2 = !active2;
+                active3 = !active3;
+                active4 = !active4;
+
+            });
+        });
+    </script>
+</div>
+</body>
+
+</html>

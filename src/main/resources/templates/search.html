@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kết nối Việt Nam</title>
+    <link rel="shortcut icon" href="images/logo.ico">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen"
+          href="css/Assment.css"/>
+    <script src="js/jquery-1.9.1.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro'
+          rel='stylesheet' type='text/css'>
+    <link
+            href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700'
+            rel='stylesheet' type='text/css'>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href="./js/morris.js/morris.css" rel="stylesheet"/>
+    <script type="text/javascript" src="../Js/jquery.autocomplete.min.js"></script>
+    <script type="text/javascript" src="../Js/script.js"></script>
+    <style>
+        strong {
+            font-size: 15px;
+        }
+
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.4s;
+        }
+
+        .active,
+        .accordion:hover {
+            background-color: #ccc;
+        }
+
+        .panel {
+            padding: 0 18px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+
+                title: {
+                    text: "HIỆN ĐẠI HÓA ĐƯỜNG SẮT HÀ NỘI",
+                },
+
+                data: [{
+                    type: "spline",
+                    lineThickness: 3,
+                    xValueFormatString: "Năm ####",
+                    yValueFormatString: "#######.00 km",
+                    dataPoints: [{
+                        x: 2000,
+                        y: 400
+                    }, {
+                        x: 2005,
+                        y: 576
+                    }, {
+                        x: 2010,
+                        y: 745
+                    }, {
+                        x: 2012,
+                        y: 876
+                    }, {
+                        x: 2015,
+                        y: 990
+                    }, {
+                        x: 2018,
+                        y: 1201
+                    }, {
+                        x: 2020,
+                        y: 1447
+                    }, {
+                        x: 2025,
+                        y: 1809
+                    }, {
+                        x: 2030,
+                        y: 2209
+                    },
+
+                    ]
+                }
+
+                ]
+            });
+
+            chart.render();
+        };
+    </script>
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+    <link href="https://cdn.syncfusion.com/ej2/material.css"
+          rel="stylesheet">
+    <script type="text/javascript"
+            src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+
+<body>
+<div class="container" style="min-height: 2000px">
+    <header
+            style="margin-bottom: 1%; height: 80px; color: rgb(41, 40, 40);">
+        <ul class="nav">
+            <li class="hm"><a th:href="@{/login}"><img class="icon"
+                                                       src="https://cdn4.iconfinder.com/data/icons/essential-app-2/16/user-avatar-human-admin-login-24.png"
+                                                       alt="Login"></a></li>
+            <li class="fb"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-facebook-24.png"
+                                alt="Facebook"></li>
+            <li class="gp"><img class="icon"
+                                src="https://cdn3.iconfinder.com/data/icons/picons-social/57/40-google-plus-24.png"
+                                alt="Google +"></li>
+            <li class="tw"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/social-twitter-24.png"
+                                alt="Twitter"></li>
+            <li class="cl"><img class="icon"
+                                src="https://cdn0.iconfinder.com/data/icons/typicons-2/24/phone-24.png"
+                                alt="Liên hệ"></li>
+        </ul>
+
+    </header>
+    <nav style="margin-top: 0px; height: 320px;">
+        <div class="slider-container">
+            <div class="slider">
+                <img src="images/slider/anh1.png" title="Slide 1"/> <img
+                    src="images/slider/anh2.png" title="Slide 2"/> <img
+                    src="images/slider/anh3.png" title="Slide 3"/> <img
+                    src="images/slider/anh4.png" title="Slide 4"/> <img
+                    src="images/slider/anh5.png" title="Slide 5"/>
+                <button type="button" onclick="getPrevImage()" class="btn"
+                        id="btnPrev">&lt;
+                </button>
+                <button type="button" onclick="getNextImage()" class="btn"
+                        id="btnNext">&gt;
+                </button>
+                <h1 id="titleSlider">Slide Title 1</h1>
+            </div>
+
+        </div>
+    </nav>
+    <article style="border: none;width: 78%; margin-top: 1%;">
+        <div>
+            <div>
+                <div class="parent2">
+                    <div class="test1">
+                        <i class="fa fa-user fa-2x"></i>
+                    </div>
+                    <div class="test2">
+                        <i class="fa fa-star fa-2x"></i>
+                    </div>
+                    <div class="test3">
+                        <i class="fa fa-code fa-2x"></i>
+                    </div>
+                    <div class="test4">
+                        <a th:href="@{/}" style="color: white;"><i class="fa fa-envelope-o fa-2x"></i></a>
+                    </div>
+                    <div class="mask2">
+                        <i class="fa fa-home fa-3x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="big-news" style="width: 49%; height: 10%">
+            <img src="images/008.jpg" title="Đường sắt Bắc Nam"
+                 style="opacity: 1 important; padding: 1% 1%; width: 98%; height: auto"/>
+            <strong style="padding-left: 2%;">Tiến trình hiện đại hóa hệ
+                thống đường sắt Việt Nam</strong>
+        </div>
+        <div class="big-news"
+             style="width: 49%; margin-left: 2%; height: 10%;">
+            <img src="images/Shinkansen.jpg" title="Đường sắt Bắc Nam"
+                 style="opacity: 1 important; padding: 1% 1%; width: 98%; height: auto"/>
+            <strong style="padding-left: 2%;">Tàu Shinkansen thế hệ mới
+                chạy thử - Tokyo Station</strong>
+        </div>
+
+        <div class="big-news"
+             style="margin-top: 1%; border-top: 8px orange solid; width: 80%;padding: 2%; margin-left: 1%;">
+            Thông tin bạn cần:
+            <div th:if="${theWay}">
+                <h2 th:text="${theWay}" style="color: blue;"/>
+            </div>
+            Ga đi:
+            <div th:if="${arrivals}">
+                <h2 th:text="${arrivals}"/>
+            </div>
+            Ga đến:
+            <div th:if="${departures}">
+                <h2 th:text="${departures}"/>
+            </div>
+        </div>
+    </article>
+    <aside style="width: 20%;margin-left: 2%;margin-top: 1%;">
+        <div class="big-news"
+             style="margin-top: 1%; border-top: 8px orange solid; width: 100%; margin-left: 1%;">
+            <div
+                    style="width: 100%; float: left; margin: 1% 0.5%;">
+                <h3 style="margin: 2% 35%;">Tìm kiếm</h3>
+            </div>
+            <form th:action="@{/search}" th:object="${routeVO}"
+                  method="post" >
+                <div id="searchfield"
+                     style="width: 100%; float: left; margin: 1% 0.5%;">
+
+                    <input type="text" name="arrivals" class="biginput" placeholder="Ga đi" th:field="*{arrival}" id="autocomplete" style="width: 90%;">
+
+                </div>
+                <div id="searchfield1"
+                     style="width: 100%; float: left; margin: 1% 1%;height: 3%;">
+
+                    <input type="text" name="departures" class="biginput" placeholder="Ga đến"           th:field="*{department}"  id="autocomplete1" style="width: 90%;">
+
+                </div>
+                <input style="margin-left: 35%;" type="submit" value="Tìm kiếm" class="btn btn-default btn-soundcloud">
+            </form>
+            <h2 style="margin-left: 35%;">Accordion</h2>
+
+            <button class="accordion">Tuyến 1</button>
+            <div class="panel">
+                <p><strong>Ga Hà Nội</strong> - Hồ Gươm - Công viên Lê Nin - <strong>Bến xe Kim Mã</strong> - Khách sạn
+                    Deawoo - <strong>Khách sạn Cầu Giấy</strong> - Đại học sư pham Hà Nội - <strong>Nghĩa trang Mai
+                        Dịch</strong> -
+                    Văn Tiến Dũng - <strong>Đại học Nhổn</strong></p>
+            </div>
+
+            <button class="accordion">Tuyến 2</button>
+            <div class="panel">
+                <p><strong>Cát Linh</strong> - Hoàng Cầu - Thái Thịnh - Chính Kinh - <strong>Đại học Hà Nội</strong> -
+                    Hồ
+                    Gươm Plaza - <strong>Bưu điện Hà Đông</strong> - Khu đô thị Văn Phú - <strong>Bến xe Yên
+                        Nghĩa</strong>
+                </p>
+            </div>
+
+            <button class="accordion">Tuyến 3</button>
+            <div class="panel">
+                <p><strong>Ga Hà Nội</strong> - Trần Hưng Đạo - <strong>Trần Quang Khải</strong> - <strong>Bến xe Long
+                    Biên</strong> - Bến xe Gia Lâm - Ngô Gia Tự - Cầu Đuống - Thị trấn Yên Viên - <strong>Ninh
+                    Hiệp</strong>
+                </p>
+            </div>
+            <button class="accordion">Tuyến 4</button>
+            <div class="panel">
+                <p><strong>Đại học CN Nhổn</strong> - <strong>Nghĩa trang Mai Dịch</strong> - Bộ công an Phạm Văn Đồng -
+                    <strong>Khu Đô thị Ciputra</strong> - Mê Linh Plaza - <strong>Sân bay Nội Bài</strong></p>
+            </div>
+
+            <button class="accordion">Tuyến 5</button>
+            <div class="panel">
+                <p><strong>Bến xe Yên Nghĩa</strong> - Khu đô thị Văn Phú - <strong>Bưu điện Hà Đông</strong> - Khu đô
+                    thị
+                    Sa La - Tả Thanh Oai - Nghĩa trang Văn Điển - <strong>Thị trấn Văn Điển</strong> - Bệnh viện Nội
+                    tiết
+                    trung ương - <strong>Bến xe nước ngầm</strong></p>
+            </div>
+
+            <button class="accordion">Tuyến 6</button>
+            <div class="panel">
+                <p><strong>Ga Long Biên</strong> - Hồ Gươm - <strong>Ga Hà Nội</strong>- <strong>Bệnh viện Bạch
+                    Mai</strong>
+                    - Ga Giáp Bát - <strong>Bến xe Nước Ngầm</strong></p>
+            </div>
+            <button class="accordion">Tuyến 7</button>
+            <div class="panel">
+                <p><strong>Bến xe Nước Ngầm</strong> - Khu đô thị Gamuda - Chợ đầu mối Lĩnh Nam - <strong>Time
+                    city</strong>
+                    - Nguyễn Khoái - <strong>Trần Quang Khải</strong> - <strong>Bến xe Long Biên</strong></p>
+            </div>
+
+            <button class="accordion">Tuyến 8</button>
+            <div class="panel">
+                <p><strong>Cát Linh</strong> - Khách sạn Deawoo - <strong>Bưởi</strong> - <strong>Khu đô thị
+                    Ciputra</strong> - Chợ hoa Quảng Bá - Đường Thanh Niên - <strong>Bến xe Long Biên</strong></p>
+            </div>
+
+            <button class="accordion">Tuyến 9</button>
+            <div class="panel">
+                <p><strong>Khu đô thị Ciputra</strong> - <strong>Bưởi</strong> - <strong>Khách sạn Cầu Giấy</strong> -
+                    <strong>Trung Yên Plaza</strong> - Chính Kinh - Tòa nhà Atermis -
+                    <strong>Bệnh viện Bạch Mai</strong> - <strong>Time city</strong> - <strong>Trần Quang Khải</strong>
+                </p>
+            </div>
+            <button class="accordion">Tuyến 10</button>
+            <div class="panel">
+                <p><strong>Bến xe Kim Mã</strong> - <strong>Khách sạn Deawoo</strong> - <strong>Trung Yên plaza</strong>
+                    -
+                    Trung tâm hội nghị Quốc Gia - Thiên đường Bảo Sơn - Khu công nghệ cao Hòa Lạc -<strong>Làng văn hóa
+                        các
+                        dân tộc</strong></p>
+            </div>
+            <button class="accordion">Tuyến 11</button>
+            <div class="panel">
+                <p><strong>Khu đô thị Ciputra(PVD)</strong> - Bộ công an Phạm Văn Đồng - <strong>Đại học sư phạm Hà Nội</strong></strong> - <strong>Trung tâm hội nghị Quốc Gia</strong> - <strong>Đại học Hà Nội</strong> - Hồ Gươm Plaza - Bưu điện Hà Đông - Khu đô thị Văn Phú - Bến xe Yên Nghĩa</p>
+            </div>
+        </div>
+    </aside>
+
+</div>
+<script type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="js/assignment.js"></script>
+<script>
+    var indexCurrent = 3; // Chỉ số hình đầu tiên hiển thị ở slide
+    var loop = true; // Bật lặp slide
+    var showbutton = true; // Hiện 2 button điều hướng
+    var duration = 4000; // Thời gian chờ chuyển hình (tính theo đơn vị milisecond)
+
+    initSlider();
+    $(document).ready(function () {
+
+        var active1 = false;
+        var active2 = false;
+        var active3 = false;
+        var active4 = false;
+
+        $('.parent2').on('mousedown touchstart', function () {
+
+            if (!active1)
+                $(this).find('.test1').css({
+                    'background-color': 'gray',
+                    'transform': 'translate(0px,125px)'
+                });
+            else
+                $(this).find('.test1').css({
+                    'background-color': 'dimGray',
+                    'transform': 'none'
+                });
+            if (!active2)
+                $(this).find('.test2').css({
+                    'background-color': 'gray',
+                    'transform': 'translate(60px,105px)'
+                });
+            else
+                $(this).find('.test2').css({
+                    'background-color': 'darkGray',
+                    'transform': 'none'
+                });
+            if (!active3)
+                $(this).find('.test3').css({
+                    'background-color': 'gray',
+                    'transform': 'translate(105px,60px)'
+                });
+            else
+                $(this).find('.test3').css({
+                    'background-color': 'silver',
+                    'transform': 'none'
+                });
+            if (!active4)
+                $(this).find('.test4').css({
+                    'background-color': 'gray',
+                    'transform': 'translate(125px,0px)'
+                });
+            else
+                $(this).find('.test4').css({
+                    'background-color': 'silver',
+                    'transform': 'none'
+                });
+            active1 = !active1;
+            active2 = !active2;
+            active3 = !active3;
+            active4 = !active4;
+
+        });
+    });
+    document.getElementById("star").addEventListener("click", function () {
+        document.getElementById("star").style.color = "yellow";
+        document.getElementById("star").style.opacity = 0.8;
+    });
+    // Load google charts
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Draw the chart and set the chart values
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Phương tiện', 'Mức độ ảnh hưởng môi trường'],
+            ['Ô tô', 8], ['Xe máy', 2], ['Tàu điện', 4],
+            ['Xe đạp', 2], ['Máy bay', 8]]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = {
+            'title': 'Tỷ lệ gây ô nhiễm các phương tiện Giao thông',
+            'width': 400,
+            'height': 320
+        };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document
+            .getElementById('piechart'));
+        chart.draw(data, options);
+    };
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>
