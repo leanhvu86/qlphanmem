@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nxm.model.Brand;
+import com.nxm.model.PalletPosition;
 import com.nxm.model.Product;
 import com.nxm.model.ProductType;
 import com.nxm.model.StockTotalDetail;
 import com.nxm.repository.BrandRepositoty;
+import com.nxm.repository.PalletPoisitionRepository;
 import com.nxm.repository.ProductRepository;
 import com.nxm.repository.ProductTypeRepository;
 import com.nxm.repository.StockTotalDetailRepository;
@@ -36,11 +42,17 @@ public class ProductController {
 	private StockTotalDetailService service;
 
 	@Autowired
+	private StockTotalDetailRepository repository;
+	
+	@Autowired
 	private ProductRepository productService;
 
 	@Autowired
 	private BrandRepositoty brandService;
 
+	@Autowired
+	private PalletPoisitionRepository repo;
+	
 	@Autowired
 	private ProductTypeRepository productTypeService;
 //	@RequestMapping(value = "/stock", method = RequestMethod.POST)
@@ -85,5 +97,21 @@ public class ProductController {
 //		}
 //	}
 
-	
+
+	@GetMapping("/moveposition/{idpallet}")
+	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response) {
+		HttpSession session = response.getSession(true);
+		String id = (String) session.getAttribute("id");
+		System.out.println(id);
+		Long longStock = Long.parseLong(id);
+		Long palletId = Long.parseLong(idpallet);
+		StockTotalDetail stock = service.findOne(longStock);
+		PalletPosition pallet = repo.findOne(palletId);
+		stock.setPalletPosition(pallet);
+		repository.save(stock);
+		model.addAttribute("msg", "Đã chuyển vị trí thành công");
+		return "redirect:/findPoisition";
+
+	}
+
 }
