@@ -377,7 +377,7 @@ public class StockController {
 		List<PalletPosition> temp = new ArrayList<>();
 		if (areaId == null && paletPosition == null) {
 			temp = palletPoisitionService.getAllPalletPoisitions(pageable).getContent();
-		} else if(areaId == null) {
+		} else if(areaId.equals("0")||paletPosition.equals("0")) {
 			temp = palletPoisitionService.getAllPalletPoisitions(pageable).getContent();
 		}
 		else {
