@@ -238,7 +238,7 @@ span.selected {
 					<td th:text="${palletposition.areaId}" />
 					<td th:text="${palletposition.palletNumber}" />
 					<td th:text="${palletposition.id}" />
-					<td th:text="${100-palletposition.emptyPercent}" />
+					<td><span th:text="${100-palletposition.emptyPercent}" ></span>%</td>
 
 					<td th:if="${palletposition.product}"
 						th:text="${palletposition.product}"></td>
