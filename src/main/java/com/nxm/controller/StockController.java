@@ -375,7 +375,7 @@ public class StockController {
 		int page1 = pageable.getPageNumber();
 		int count = 10;
 		List<PalletPosition> temp = new ArrayList<>();
-		if (areaId == null && paletPosition == null) {
+		if (areaId == null || paletPosition == null) {
 			temp = palletPoisitionService.getAllPalletPoisitions(pageable).getContent();
 		} else {
 			temp = palletPoisitionService.findRecord(areaId, paletPosition);
