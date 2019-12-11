@@ -354,7 +354,7 @@ public class StockController {
 			if (max > impiantos.size()) {
 				max = impiantos.size();
 			}
-			long total = (long) impiantos.size();
+			long total = (long) temp.size();
 
 			Page<PalletPoisitonVo> pageImpianto = new PageImpl<PalletPoisitonVo>(impiantos.subList(min, max), pageable,
 					total);
