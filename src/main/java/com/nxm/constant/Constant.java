@@ -8,4 +8,6 @@ public class Constant {
 	public static final String POST = "587";
 
 	public static final String HOST = "smtp.gmail.com";
+	
+	public static String USER_LOGGED_KEY = "userLogged";
 }
