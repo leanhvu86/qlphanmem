@@ -292,7 +292,7 @@ span.selected {
 			<div class="pagination-div">
 				<span th:if="${page.hasPrevious()}"> <a
 					style="text-decoration: none; width: 5px; float: left;"
-					th:href="@{/stock(page=${page.number-1},size=${page.size})}">&laquo;</a>
+					th:href="@{/findPoisition(page=${page.number-1},size=${page.size})}">&laquo;</a>
 				</span>
 				<th:block th:each="i: ${#numbers.sequence(0, page.totalPages - 1)}">
 					<span th:if="${page.number == i}" class="selected"
@@ -300,12 +300,12 @@ span.selected {
 						th:text="${i}+1"></span>
 					<span th:unless="${page.number == i}"> <a
 						style="color: black; float: left; text-decoration: none; font-size: 10px; width: 3px;"
-						th:href="@{/stock(page=${i},size=${page.size})}" th:text="${i}+1"></a>
+						th:href="@{/findPoisition(page=${i},size=${page.size})}" th:text="${i}+1"></a>
 					</span>
 				</th:block>
 				<span th:if="${page.hasNext()}"> <a
 					style="color: black; float: left; padding: 3px 5px; text-decoration: none;"
-					th:href="@{/stock(page=${page.number+1},size=${page.size})}">&raquo;</a>
+					th:href="@{/findPoisition(page=${page.number+1},size=${page.size})}">&raquo;</a>
 				</span>
 			</div>
 		</div>
