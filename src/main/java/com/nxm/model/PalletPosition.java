@@ -91,7 +91,7 @@ public class PalletPosition {
 	@Transient
 	public static final String findQuery = "   	FROM tbl_pallet_position pp  \r\n	" + 
 			"			LEFT JOIN tbl_pallet tp	ON pp.palletid = tp.id \r\n " + 
-			"	 where tp.col_areaid = :areaId and  pp.col_palletnumber = :paletPoisiton \r\n " + 
+			"	 where tp.col_areaid = :areaId and  tp.col_palletnumber = :paletPoisiton \r\n " + 
 			"				 group by tp.col_areaid,tp.col_palletnumber,pp.col_emtypercent,pp.id";
 	public static String getFindquery() {
 		return findQuery;
