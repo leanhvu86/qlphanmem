@@ -11,7 +11,7 @@ import com.nxm.model.PalletPosition;
 public interface PalletPoisitionService {
 
 	public Page<PalletPosition> getAllPalletPoisitions(Pageable pageable);
-	List<PalletPosition> findRecord();
+	List<PalletPosition> findRecord( String areaId, String paletPoisiton);
 	/*
 	 * public Page<PalletPoisitonVo>
 	 * findPalletpositonAndAreaIdAndEmptypercent(String emptypercent, String areaId,

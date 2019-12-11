@@ -18,8 +18,8 @@ import com.nxm.model.StockTotalDetail;
 @Repository(value = "palletPoisitionRepository")
 
 public interface PalletPoisitionRepository extends PagingAndSortingRepository<PalletPosition, Long> {
-	@Query(value = "select u.* from tbl_pallet_position u ", nativeQuery = true)
-	List<PalletPosition> findRecord();
+	@Query(value = " SELECT pp.*  "+ PalletPosition.findQuery, nativeQuery = true)
+	List<PalletPosition> findRecord(@Param("areaId") String areaId, @Param("paletPoisiton") String paletPoisiton);
 	/*@Query(value = "select  tp.col_areaid as areaId,tp.col_palletnumber as palletNumber,pp.col_emtypercent as emptypercent,pp.id as id, sanpham.data as product\r\n" + 
 			"	from tbl_pallet_position pp \r\n" + 
 			"	join tbl_pallet tp on pp.palletid=tp.id \r\n" + 

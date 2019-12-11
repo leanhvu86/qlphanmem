@@ -141,7 +141,7 @@ public class StockTotalDetail  implements Serializable {
 	}
 
 	@Transient
-	public static final String findQuery = "from tbl_stocktotaldetail std join tbl_product p on p.id = std.col_product  \r\n" + 
+	public static final String findQuery = "   from tbl_stocktotaldetail std join tbl_product p on p.id = std.col_product  \r\n" + 
 			"	join tbl_brand b on b.id = p.col_brandid \r\n" + 
 			"	join tbl_product_type ty on ty.id = p.product_type \r\n" + 
 			"	where p.col_name = :productName and b.col_name = :brandName and ty.col_type_name = :productType";

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.nxm.model.PalletPoisitonVo;
@@ -24,9 +25,9 @@ public class PalletPoisitionServiceImpl implements PalletPoisitionService {
 	}
 
 	@Override
-	public List<PalletPosition> findRecord() {
+	public List<PalletPosition> findRecord(String areaId, String paletPoisiton) {
 		// TODO Auto-generated method stub
-		return palletPoisitionRepository.findRecord();
+		return palletPoisitionRepository.findRecord( areaId, paletPoisiton);
 	}
 
 	/*@Override

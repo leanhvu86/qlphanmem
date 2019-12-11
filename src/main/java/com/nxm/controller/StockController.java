@@ -154,7 +154,9 @@ public class StockController {
 			}
 		}
 		List<StockTotalDetail> impiantos = new ArrayList<>();
-		if (nameproduct != null && namebrand != null && typename != null && expireddate != null) {
+		if (nameproduct != null && namebrand != null && typename != null && expireddate != null
+				&& !nameproduct.equals("") && !namebrand.equals("") && !typename.equals("")
+				&& !expireddate.equals("")) {
 			long productId = Long.parseLong(nameproduct);
 			long brandId = Long.parseLong(namebrand);
 			long typeProductId = Long.parseLong(typename);
@@ -184,11 +186,13 @@ public class StockController {
 			Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos.subList(min, max), pageable,
 					total);
 			model.addAttribute("page", pageImpianto);
+			model.addAttribute("palletpositions", pageImpianto.getContent());
 			return "stock";
 
 		} else {
 			Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos, pageable, (long) 0);
 			model.addAttribute("page", pageImpianto);
+			model.addAttribute("palletpositions", pageImpianto.getContent());
 			String chotkho = "Không tìm thấy tồn kho sản phẩm bạn tìm kiếm";
 			model.addAttribute("chotkho", chotkho);
 			return "stock";
@@ -238,41 +242,41 @@ public class StockController {
 						cookie.setValue(nameproduct);
 						cookie.setMaxAge(0);
 						Cookie cookie1 = new Cookie("productId", nameproduct);
-				        //set the expiration time
-				        //1 hour = 60 seconds x 60 minutes
-				        cookie1.setMaxAge(60 * 60);
-				        //add the cookie to the  response
-				        response.addCookie(cookie1);
+						// set the expiration time
+						// 1 hour = 60 seconds x 60 minutes
+						cookie1.setMaxAge(60 * 60);
+						// add the cookie to the response
+						response.addCookie(cookie1);
 						System.out.println(nameproduct);
 					} else if (cookie.getName().equals("brandId")) {
 						cookie.setValue(namebrand);
 						cookie.setMaxAge(0);
 						Cookie cookie1 = new Cookie("brandId", namebrand);
-				        //set the expiration time
-				        //1 hour = 60 seconds x 60 minutes
-				        cookie1.setMaxAge(60 * 60);
-				        //add the cookie to the  response
-				        response.addCookie(cookie1);
+						// set the expiration time
+						// 1 hour = 60 seconds x 60 minutes
+						cookie1.setMaxAge(60 * 60);
+						// add the cookie to the response
+						response.addCookie(cookie1);
 						System.out.println(namebrand);
 					} else if (cookie.getName().equals("typeProductId")) {
 						cookie.setValue(typename);
 						cookie.setMaxAge(0);
 						Cookie cookie1 = new Cookie("typeProductId", typename);
-				        //set the expiration time
-				        //1 hour = 60 seconds x 60 minutes
-				        cookie1.setMaxAge(60 * 60);
-				        //add the cookie to the  response
-				        response.addCookie(cookie1);
+						// set the expiration time
+						// 1 hour = 60 seconds x 60 minutes
+						cookie1.setMaxAge(60 * 60);
+						// add the cookie to the response
+						response.addCookie(cookie1);
 						System.out.println(typename);
 					} else if (cookie.getName().equals("expriedDate")) {
 						cookie.setValue(expireddate);
 						cookie.setMaxAge(0);
 						Cookie cookie1 = new Cookie("expriedDate", expireddate);
-				        //set the expiration time
-				        //1 hour = 60 seconds x 60 minutes
-				        cookie1.setMaxAge(60 * 60);
-				        //add the cookie to the  response
-				        response.addCookie(cookie1);
+						// set the expiration time
+						// 1 hour = 60 seconds x 60 minutes
+						cookie1.setMaxAge(60 * 60);
+						// add the cookie to the response
+						response.addCookie(cookie1);
 						System.out.println(expireddate);
 					}
 
@@ -313,6 +317,7 @@ public class StockController {
 			model.addAttribute("page", pageImpianto);
 			String chotkho = "Thông tin tồn kho sản phẩm bạn tìm kiếm như sau";
 			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("palletpositions", pageImpianto.getContent());
 			return "stock";
 
 		} else {
@@ -320,6 +325,7 @@ public class StockController {
 			model.addAttribute("page", pageImpianto);
 			String chotkho = "Không tìm thấy tồn kho sản phẩm bạn tìm kiếm";
 			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("palletpositions", pageImpianto.getContent());
 			return "stock";
 		}
 	}
@@ -332,8 +338,13 @@ public class StockController {
 			@RequestParam(value = "paletPosition", required = false) String paletPosition) {
 		int page1 = pageable.getPageNumber();
 		int count = 10;
+		List<PalletPosition> temp = new ArrayList<>();
+		if (areaId == null && paletPosition == null) {
+			temp = palletPoisitionService.getAllPalletPoisitions(pageable).getContent();
+		} else {
+			temp = palletPoisitionService.findRecord(areaId, paletPosition);
+		}
 
-		List<PalletPosition> temp = palletPoisitionService.findRecord();
 		List<PalletPoisitonVo> impiantos = this.filterByParam(temp, areaId, percent, product, paletPosition); // returned
 		model.addAttribute("id", id); // 30
 		if (impiantos != null && impiantos.size() > 0) {
@@ -370,106 +381,48 @@ public class StockController {
 		if (paletPoisiton != null && !paletPoisiton.equals("")) {
 			palletpositionId = Long.parseLong(paletPoisiton);
 		}
-		for (PalletPosition palletPosition : palletPositions) {
-			PalletPoisitonVo palletPoisitonVo = new PalletPoisitonVo();
-			if (areaId != null && !areaId.equals("")) {
-				if (areaId.equals(palletPosition.getPallet().getAreaId()) && percent1 >= 0
-						&& palletPosition.getEmptyPercent() == percent1) {
-					if (palletpositionId > 0 && palletPosition.getPallet().getPalletNumber() == palletpositionId) {
-						palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
-						palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
-						palletPoisitonVo.setId(palletPosition.getId());
-						palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
-						// get values from contact entity and set them in contactDto
-						// e.g. contactDto.setContactId(contact.getContactId());
+		if (productId > 0) {
+			for (PalletPosition palletPosition : palletPositions) {
+				PalletPoisitonVo palletPoisitonVo = new PalletPoisitonVo();
 
-						List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
-						String product = "";
-						for (StockTotalDetail stockTotalDetail : temp) {
-							if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
-								product += stockTotalDetail.getProduct().getName() + "; ";
-							}
-						}
-						palletPoisitonVo.setProduct(product);
-						palletPoisitonVos.add(palletPoisitonVo);
-					} else {
-						palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
-						palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
-						palletPoisitonVo.setId(palletPosition.getId());
-						palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
-						// get values from contact entity and set them in contactDto
-						// e.g. contactDto.setContactId(contact.getContactId());
-
-						List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
-						String product = "";
-						for (StockTotalDetail stockTotalDetail : temp) {
-							if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
-								product += stockTotalDetail.getProduct().getName() + "; ";
-							}
-						}
-						palletPoisitonVo.setProduct(product);
-						palletPoisitonVos.add(palletPoisitonVo);
-					}
-
-				} else if (areaId.equals(palletPosition.getPallet().getAreaId()) && percent1 < 0) {
-					if (palletpositionId > 0 && palletPosition.getPallet().getPalletNumber() == palletpositionId) {
-						palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
-						palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
-						palletPoisitonVo.setId(palletPosition.getId());
-						palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
-						// get values from contact entity and set them in contactDto
-						// e.g. contactDto.setContactId(contact.getContactId());
-
-						List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
-						String product = "";
-						for (StockTotalDetail stockTotalDetail : temp) {
-							if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
-								product += stockTotalDetail.getProduct().getName() + "; ";
-							}
-						}
-						palletPoisitonVo.setProduct(product);
-						palletPoisitonVos.add(palletPoisitonVo);
-					} else {
-						palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
-						palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
-						palletPoisitonVo.setId(palletPosition.getId());
-						palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
-						// get values from contact entity and set them in contactDto
-						// e.g. contactDto.setContactId(contact.getContactId());
-
-						List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
-						String product = "";
-						for (StockTotalDetail stockTotalDetail : temp) {
-							if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
-								product += stockTotalDetail.getProduct().getName() + "; ";
-							}
-						}
-						palletPoisitonVo.setProduct(product);
-						palletPoisitonVos.add(palletPoisitonVo);
+				palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
+				palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
+				palletPoisitonVo.setId(palletPosition.getId());
+				palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
+				List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
+				String product = "";
+				for (StockTotalDetail stockTotalDetail : temp) {
+					if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
+						product += stockTotalDetail.getProduct().getName() + "; ";
 					}
 				}
-			} else {
-				if ("A".equals(palletPosition.getPallet().getAreaId())) {
-					palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
-					palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
-					palletPoisitonVo.setId(palletPosition.getId());
-					palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
-					// get values from contact entity and set them in contactDto
-					// e.g. contactDto.setContactId(contact.getContactId());
+				palletPoisitonVo.setProduct(product);
+				palletPoisitonVos.add(palletPoisitonVo);
 
-					List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
-					String product = "";
-					for (StockTotalDetail stockTotalDetail : temp) {
-						if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
-							product += stockTotalDetail.getProduct().getName() + "; ";
-						}
+			}
+		} else {
+			for (PalletPosition palletPosition : palletPositions) {
+				PalletPoisitonVo palletPoisitonVo = new PalletPoisitonVo();
+
+				palletPoisitonVo.setAreaId(palletPosition.getPallet().getAreaId());
+				palletPoisitonVo.setEmptyPercent(palletPosition.getEmptyPercent());
+				palletPoisitonVo.setId(palletPosition.getId());
+				palletPoisitonVo.setPalletNumber(palletPosition.getPallet().getPalletNumber());
+				List<StockTotalDetail> temp = stockTotalDetailService.findRecord();
+				String product = "";
+				for (StockTotalDetail stockTotalDetail : temp) {
+					if (stockTotalDetail.getPalletPosition().getId() == palletPosition.getId()) {
+						product += stockTotalDetail.getProduct().getName() + "; ";
 					}
-					palletPoisitonVo.setProduct(product);
-					palletPoisitonVos.add(palletPoisitonVo);
 				}
+				palletPoisitonVo.setProduct(product);
+				palletPoisitonVos.add(palletPoisitonVo);
+
 			}
 		}
+
 		return palletPoisitonVos;
+
 	}
 
 	private PalletPoisitonVo convertToContactDto(final PalletPosition palletPosition) {
