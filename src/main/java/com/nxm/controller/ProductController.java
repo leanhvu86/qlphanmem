@@ -36,16 +36,25 @@ import com.nxm.service.ProductService;
 import com.nxm.service.ProductTypeService;
 import com.nxm.service.StockTotalDetailService;
 
+import com.nxm.model.Product;
+import com.nxm.service.BrandService;
+
 @Controller
 public class ProductController {
 	@Autowired
-	private StockTotalDetailService service;
+	private StockTotalDetailService stockTotalDetailService;
+	
+	@Autowired
+	private BrandService brandService;
 
+	@Autowired
+	private ProductTypeService proTypeRepository;
+	
 	@Autowired
 	private StockTotalDetailRepository repository;
 	
 	@Autowired
-	private ProductRepository productService;
+	private ProductRepository productRepository;
 
 	@Autowired
 	private BrandRepositoty brandService;
@@ -99,7 +108,7 @@ public class ProductController {
 
 
 	@GetMapping("/moveposition/{idpallet}")
-	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response) {
+	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response,Model model) {
 		HttpSession session = response.getSession(true);
 		String id = (String) session.getAttribute("id");
 		System.out.println(id);
@@ -110,7 +119,15 @@ public class ProductController {
 		stock.setPalletPosition(pallet);
 		repository.save(stock);
 		model.addAttribute("msg", "Đã chuyển vị trí thành công");
-		return "redirect:/findPoisition";
+		chotkho = "Hoàn thành chốt kho. Vui lòng duyệt kiểm kê để kho tiếp tục hoạt động";
+			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("brand", brandService.getAll());
+			model.addAttribute("protype", proTypeRepository.getAll());
+			model.addAttribute("product", new Product());
+			model.addAttribute("productList", productRepository.findAll());
+			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
+			return "stock";
 
 	}
 
