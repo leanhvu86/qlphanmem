@@ -335,7 +335,7 @@ public class StockController {
 		}
 	}
 
-	@GetMapping("/findPoisition")
+	/*@GetMapping("/findPoisition")
 	public String findPoisition1(Model model, @PageableDefault(size = 10) Pageable pageable, @PathVariable("id") long id,
 			@RequestParam(value = "areaId", required = false) String areaId,
 			@RequestParam(value = "percent", required = false) String percent,
@@ -372,7 +372,7 @@ public class StockController {
 			return "findPoisition";
 		}
 
-	}
+	}*/
 	@RequestMapping(value = "/findPoisition/{id}", method = RequestMethod.GET)
 	public String findPoisition(Model model, @PageableDefault(size = 10) Pageable pageable, @PathVariable("id") long id,
 			@RequestParam(value = "areaId", required = false) String areaId,
@@ -438,7 +438,7 @@ public class StockController {
 			if (max > impiantos.size()) {
 				max = impiantos.size();
 			}
-			long total = (long) impiantos.size();
+			long total = (long) temp.size();
 
 			Page<PalletPoisitonVo> pageImpianto = new PageImpl<PalletPoisitonVo>(impiantos.subList(min, max), pageable,
 					total);
