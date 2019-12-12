@@ -1189,7 +1189,7 @@ public class StockController {
 				}
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm");
 				LocalDateTime now = LocalDateTime.now();
-				fileOutName = "F://" + filetype + dtf.format(now) + ".xlsx";
+				fileOutName = "src/main/resources/excel/" + filetype + dtf.format(now) + ".xlsx";
 				FileOutputStream out = new FileOutputStream(new File(fileOutName));
 				workbook.write(out);
 				out.close();

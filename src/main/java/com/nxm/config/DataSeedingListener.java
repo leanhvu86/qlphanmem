@@ -58,24 +58,26 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
-		/*
-		 * if (roleRepository.findByName("ROLE_ADMIN") == null) {
-		 * roleRepository.save(new Role("ROLE_ADMIN")); }
-		 * 
-		 * if (roleRepository.findByName("ROLE_MEMBER") == null) {
-		 * roleRepository.save(new Role("ROLE_MEMBER")); }
-		 * 
-		 * // Admin account if (userRepository.findByEmail("admin") == null) { // thêm
-		 * employee vào trước bằng tay Set<Employee> employees = new
-		 * HashSet<Employee>(); Long id =Long.parseLong("1"); //Employee temp =
-		 * employeeRespository.findOne(id); //employees.add(temp); User admin = new
-		 * User(); admin.setEmail("leanhvu86@gmail.com");
-		 * admin.setPassword(passwordEncoder.encode("123456")); admin.setStatus(1);
-		 * admin.setCreateDate("2019-12-01"); admin.setUpdateDate("2019-12-01");
-		 * admin.setEmployees(employees); HashSet<Role> roles = new HashSet<>();
-		 * roles.add(roleRepository.findByName("ROLE_ADMIN"));
-		 * roles.add(roleRepository.findByName("ROLE_MEMBER")); admin.setRoles(roles);
-		 * userRepository.save(admin); }
+		
+		/*  if (roleRepository.findByName("ROLE_ADMIN") == null) {
+		  roleRepository.save(new Role("ROLE_ADMIN")); }
+		  
+		  if (roleRepository.findByName("ROLE_MEMBER") == null) {
+		  roleRepository.save(new Role("ROLE_MEMBER")); }
+		  
+		  // Admin account if (userRepository.findByEmail("admin") == null) { // thêm
+		  //employee vào trước bằng tay Set<Employee> employees = new
+		  //HashSet<Employee>(); Long id =Long.parseLong("1"); //Employee temp =
+		 // employeeRespository.findOne(id); //employees.add(temp); 
+		  User admin = new
+		  User(); admin.setEmail("leanhvu86@gmail.com");
+		  admin.setPassword(passwordEncoder.encode("123456")); admin.setStatus(1);
+		  admin.setCreateDate("2019-12-01"); admin.setUpdateDate("2019-12-01");
+		 // admin.setEmployees(employees); 
+		  HashSet<Role> roles = new HashSet<>();
+		  roles.add(roleRepository.findByName("ROLE_ADMIN"));
+		  roles.add(roleRepository.findByName("ROLE_MEMBER")); admin.setRoles(roles);
+		  userRepository.save(admin); }
 		 */
 //		
 //		// Member account
