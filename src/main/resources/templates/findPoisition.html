@@ -213,7 +213,7 @@ span.selected {
 							</select>
 						</div></td>
 					<td style="padding-left: 10px"><button type="submit"
-									class="btn btn-success"
+									class="btn btn-success" id="findpoisiton"
 									style="height: 28px; margin-bottom: 10px;">Tìm kiếm</button></td>
 
 				</tr>
@@ -300,13 +300,25 @@ span.selected {
 		$(window).on('load', function() {
 			$('#exampleModalCenter').modal('show');
 			
-			var area = getCookie(area);
+			var area = getCookie("area");
+			if(area ){
+				$('#areaId').val(area);
+			}
 			console.log(area);
-			var percent = getCookie(percent);
+			var percent = getCookie("percent");
+			if(percent ){
+				$('#percent').val(percent);
+			}
 			console.log(percent);
-			var product = getCookie(product);
+			var product = getCookie("product");
+			if(product ){
+				$('#product').val(product);
+			}
 			console.log(product);
-			var paletPosition = getCookie(paletPosition);
+			var paletPosition = getCookie("paletPosition");
+			if(paletPosition ){
+				$('#paletPosition').val(paletPosition);
+			}
 			console.log(paletPosition);
 		});
 		$('#findpoisiton').click(function() {

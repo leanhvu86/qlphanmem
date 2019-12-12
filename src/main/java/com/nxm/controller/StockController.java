@@ -127,7 +127,6 @@ public class StockController {
 		model.addAttribute("protype", lst);
 		model.addAttribute("product", new Product());
 		model.addAttribute("productList", productRepository.findAll());
-		model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
 		StockTotal stockTotalNow = stockTotalService.findAvaiableRecord();
 		int status = 1;
 		if (stockTotalNow != null) {
@@ -186,7 +185,7 @@ public class StockController {
 			Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos.subList(min, max), pageable,
 					total);
 			model.addAttribute("page", pageImpianto);
-			model.addAttribute("palletpositions", pageImpianto.getContent());
+			model.addAttribute("stockTotalDetail", pageImpianto.getContent());
 			return "stock";
 
 		} else {
@@ -195,6 +194,7 @@ public class StockController {
 			model.addAttribute("palletpositions", pageImpianto.getContent());
 			String chotkho = "Không tìm thấy tồn kho sản phẩm bạn tìm kiếm";
 			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("stockTotalDetail", pageImpianto.getContent());
 			return "stock";
 		}
 	}
@@ -722,6 +722,7 @@ public class StockController {
 			if (stockTotalNow != null) {
 				model.addAttribute("status", status);
 			}
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		} else {
 			model.addAttribute("brand", brandService.getAll());
@@ -735,7 +736,7 @@ public class StockController {
 				model.addAttribute("status", status);
 			}
 			model.addAttribute("mgs", "Thêm mới không thàng công");
-
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		}
 
@@ -756,6 +757,7 @@ public class StockController {
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
 			int status = 1;
 			model.addAttribute("status", status);
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		}
 		if (reapExcelDataFile.getInputStream() == null) {
@@ -766,6 +768,7 @@ public class StockController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		}
 		int status = 1;
@@ -1024,6 +1027,7 @@ public class StockController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		} else {
 			chotkho = "Chưa hoàn thành chốt kho. Vui lòng kiểm tra file Excel chốt kho";
@@ -1033,7 +1037,7 @@ public class StockController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
-
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			exportFile(httpServletRequest, response, "Bieu_mau_chot_kho_loi", lstFail);
 		}
 		return "stock";
@@ -1243,6 +1247,7 @@ public class StockController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		} else {
 			model.addAttribute("chotkho", "Hiện tại đã kiểm kê kho.");
@@ -1251,7 +1256,7 @@ public class StockController {
 			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
 			model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
-
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		}
 	}
@@ -1286,11 +1291,13 @@ public class StockController {
 				model.addAttribute("product", new Product());
 				model.addAttribute("productList", productRepository.findAll());
 				model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
+				
 				StockTotal stockTotalNow = stockTotalService.findAvaiableRecord();
 				int status = 1;
 				if (stockTotalNow != null) {
 					model.addAttribute("status", status);
 				}
+				model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 				return "stock";
 
 			} else {
@@ -1300,7 +1307,7 @@ public class StockController {
 				model.addAttribute("product", new Product());
 				model.addAttribute("productList", productRepository.findAll());
 				model.addAttribute("stockTotalDetail", stockTotalDetailService.findAll(pageable));
-
+				model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 				return "stock";
 			}
 
@@ -1316,6 +1323,7 @@ public class StockController {
 			if (stockTotalNow != null) {
 				model.addAttribute("status", status);
 			}
+			model.addAttribute("page", stockTotalDetailService.findAll(pageable));
 			return "stock";
 		}
 
