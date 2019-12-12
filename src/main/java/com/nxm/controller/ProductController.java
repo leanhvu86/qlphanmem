@@ -109,7 +109,7 @@ public class ProductController {
 
 
 	@GetMapping("/moveposition/{idpallet}")
-	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response,Model model,Pageable pageable) {
+	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response,Pageable pageable) {
 		HttpSession session = response.getSession(true);
 		String id = (String) session.getAttribute("id");
 		System.out.println(id);
