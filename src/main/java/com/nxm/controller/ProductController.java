@@ -120,6 +120,7 @@ public class ProductController {
 		stock.setPalletPosition(pallet);
 		repository.save(stock);
 		model.addAttribute("msg", "Đã chuyển vị trí thành công");
+		String chotkho ="";
 		chotkho = "Hoàn thành chốt kho. Vui lòng duyệt kiểm kê để kho tiếp tục hoạt động";
 			model.addAttribute("chotkho", chotkho);
 			model.addAttribute("brand", brandService.getAll());
