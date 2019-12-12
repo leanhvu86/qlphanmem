@@ -190,51 +190,48 @@ span.selected {
 	</nav>
 	<article>
 		<h2
-			style="text-align: center; font-size: 40px; margin: 26px; color: blue">DANH
-			SÁCH KHOANG CHỨA</h2>
-		<div class="row">
-			<div class="col">
-
-				<form th:action="@{/findPoisition}" th:method="GET"
-					action="stock.html" style="margin-top: 29px;">
-					<table style="width: 100%;">
-						<tr>
-							<td style="padding-bottom: 9px; text-align: center;">Khu vực</td>
-							<td><div class="input-group mb-3">
-									<select class="custom-select" name="areaId" id="areaId">
-										<option th:value="A" th:text="A" />
-										<option th:value="B" th:text="B" />
-										<option th:value="C" th:text="C" />
-										<option th:value="D" th:text="D" />
-										<option th:value="E" th:text="E" />
-										<option th:value="F" th:text="F" />
-										<option th:value="G" th:text="G" />
-										<option th:value="H" th:text="H" />
-										<option th:value="I" th:text="I" />
-										<option th:value="J" th:text="J" />
-										<option th:value="K" th:text="K" />
-										<option th:value="L" th:text="L" />
-									</select>
-								</div></td>
-							<td style="padding-bottom: 9px; text-align: center;">Dung
-								lượng</td>
-							<td><div class="input-group mb-3">
-									<input type="text" class="form-control"
-										placeholder="dung lượng" name="percent" aria-label="product"
-										id="percent" aria-describedby="basic-addon1">
-								</div></td>
-							<td style="padding-bottom: 9px; text-align: center;">Vị trí</td>
-							<td><div class="input-group mb-3">
-									<select class="custom-select" name="paletPosition"
-										id="paletPosition">
-										<option th:value="1" th:text="1" />
-										<option th:value="2" th:text="2" />
-										<option th:value="3" th:text="3" />
-										<option th:value="4" th:text="4" />
-									</select>
-								</div></td>
-							<td style="padding-left: 10px"><button type="submit"
-									class="btn btn-success"
+				style="text-align: center; font-size: 40px; margin: 26px; color: blue">DANH
+				SÁCH KHOANG CHỨA</h2>
+	<form th:action="@{/findPoisition}" th:method="GET" action="stock.html"
+					style="margin-top: 29px;">
+	<table style="    width: 100%;">
+				<tr>
+					<td style="    padding-bottom: 9px;text-align: center;">Khu vực</td>
+					<td><div class="input-group mb-3">
+							<select class="custom-select" name="areaId" id="areaId">
+								<option th:value="0" th:text="--------------" />
+								<option th:value="A" th:text="A" />
+								<option th:value="B" th:text="B" />
+								<option th:value="C" th:text="C" />
+								<option th:value="D" th:text="D" />
+								<option th:value="E" th:text="E" />
+								<option th:value="F" th:text="F" />
+								<option th:value="G" th:text="G" />
+								<option th:value="H" th:text="H" />
+								<option th:value="I" th:text="I" />
+								<option th:value="J" th:text="J" />
+								<option th:value="K" th:text="K" />
+								<option th:value="L" th:text="L" />
+							</select>
+						</div></td>
+					<td  style="    padding-bottom: 9px;text-align: center;">Dung lượng</td>
+					<td><div class="input-group mb-3">
+							<input type="text" class="form-control" placeholder="dung lượng"
+								name="percent" aria-label="product" id="percent"
+								aria-describedby="basic-addon1">
+						</div></td>
+					<td  style="    padding-bottom: 9px;text-align: center;">Vị trí</td>
+					<td><div class="input-group mb-3">
+							<select class="custom-select" name="paletPosition" id="paletPosition">
+								<option th:value="0" th:text="----------------" />
+								<option th:value="1" th:text="1" />
+								<option th:value="2" th:text="2" />
+								<option th:value="3" th:text="3" />
+								<option th:value="4" th:text="4" />
+							</select>
+						</div></td>
+					<td style="padding-left: 10px"><button type="submit"
+									class="btn btn-success" id="findpoisiton"
 									style="height: 28px; margin-bottom: 10px;">Tìm kiếm</button></td>
 
 						</tr>
@@ -343,7 +340,10 @@ span.selected {
 		$(window).on('load', function() {
 			$('#exampleModalCenter').modal('show');
 
-			var area = getCookie(area);
+			var area = getCookie("area");
+			if(area ){
+				$('#areaId').val(area);
+			}
 			console.log(area);
 			var percent = getCookie("percent");
 			if(percent ){
