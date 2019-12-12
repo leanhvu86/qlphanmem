@@ -11,6 +11,13 @@
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="vendor/bootstrap/css/bootstrap.min.css">
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+	rel="stylesheet" type="text/css" />
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
 	href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -18,10 +25,13 @@
 <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 <!--===============================================================================================-->
 <link rel="stylesheet" type="text/css"
+	th:href="@{vendor/css-hamburgers/hamburgers.min.css}"
 	href="vendor/css-hamburgers/hamburgers.min.css">
 <link rel="stylesheet" type="text/css"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}">
 <link rel="stylesheet" type="text/css"
+	th:href="@{https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css}"
 	href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css">
 
 
@@ -33,6 +43,16 @@
 <link rel="stylesheet" type="text/css" href="css/main.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+
+<link href="../static/css/util.css" th:href="@{/css/util.css}"
+	rel="stylesheet" />
+<link href="../static/css/main.css" th:href="@{/css/main.css}"
+	rel="stylesheet" />
+<link href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}"
+	rel="stylesheet" />
+<link href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 <!--===============================================================================================-->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -154,7 +174,6 @@ span.selected {
 			<button type="submit" class="btn_logout">ĐĂNG XUẤT</button>
 		</form>
 	</header>
-
 	<nav class="site-header sticky-top py-1"
 		style="position: relative; font-family: 'Archivo Black', sans-serif; background: #31b573;">
 		<div
@@ -169,82 +188,106 @@ span.selected {
 				href="#">QUẢN LÝ TÀI KHOẢN</a> <span></span>
 		</div>
 	</nav>
-
 	<article>
-			<h2
-				style="text-align: center; font-size: 40px; margin: 26px; color: blue">DANH
-				SÁCH KHOANG CHỨA</h2>
-	<form th:action="@{/findPoisition}" th:method="GET" action="stock.html"
-					style="margin-top: 29px;">
-	<table style="    width: 100%;">
-				<tr>
-					<td style="    padding-bottom: 9px;text-align: center;">Khu vực</td>
-					<td><div class="input-group mb-3">
-							<select class="custom-select" name="areaId" id="areaId">
-								<option th:value="0" th:text="--------------" />
-								<option th:value="A" th:text="A" />
-								<option th:value="B" th:text="B" />
-								<option th:value="C" th:text="C" />
-								<option th:value="D" th:text="D" />
-								<option th:value="E" th:text="E" />
-								<option th:value="F" th:text="F" />
-								<option th:value="G" th:text="G" />
-								<option th:value="H" th:text="H" />
-								<option th:value="I" th:text="I" />
-								<option th:value="J" th:text="J" />
-								<option th:value="K" th:text="K" />
-								<option th:value="L" th:text="L" />
-							</select>
-						</div></td>
-					<td  style="    padding-bottom: 9px;text-align: center;">Dung lượng</td>
-					<td><div class="input-group mb-3">
-							<input type="text" class="form-control" placeholder="dung lượng"
-								name="percent" aria-label="product" id="percent"
-								aria-describedby="basic-addon1">
-						</div></td>
-					<td  style="    padding-bottom: 9px;text-align: center;">Vị trí</td>
-					<td><div class="input-group mb-3">
-							<select class="custom-select" name="paletPosition" id="paletPosition">
-								<option th:value="0" th:text="----------------" />
-								<option th:value="1" th:text="1" />
-								<option th:value="2" th:text="2" />
-								<option th:value="3" th:text="3" />
-								<option th:value="4" th:text="4" />
-							</select>
-						</div></td>
-					<td style="padding-left: 10px"><button type="submit"
-									class="btn btn-success" id="findpoisiton"
+		<h2
+			style="text-align: center; font-size: 40px; margin: 26px; color: blue">DANH
+			SÁCH KHOANG CHỨA</h2>
+		<div class="row">
+			<div class="col">
+
+				<form th:action="@{/findPoisition}" th:method="GET"
+					action="stock.html" style="margin-top: 29px;">
+					<table style="width: 100%;">
+						<tr>
+							<td style="padding-bottom: 9px; text-align: center;">Khu vực</td>
+							<td><div class="input-group mb-3">
+									<select class="custom-select" name="areaId" id="areaId">
+										<option th:value="A" th:text="A" />
+										<option th:value="B" th:text="B" />
+										<option th:value="C" th:text="C" />
+										<option th:value="D" th:text="D" />
+										<option th:value="E" th:text="E" />
+										<option th:value="F" th:text="F" />
+										<option th:value="G" th:text="G" />
+										<option th:value="H" th:text="H" />
+										<option th:value="I" th:text="I" />
+										<option th:value="J" th:text="J" />
+										<option th:value="K" th:text="K" />
+										<option th:value="L" th:text="L" />
+									</select>
+								</div></td>
+							<td style="padding-bottom: 9px; text-align: center;">Dung
+								lượng</td>
+							<td><div class="input-group mb-3">
+									<input type="text" class="form-control"
+										placeholder="dung lượng" name="percent" aria-label="product"
+										id="percent" aria-describedby="basic-addon1">
+								</div></td>
+							<td style="padding-bottom: 9px; text-align: center;">Vị trí</td>
+							<td><div class="input-group mb-3">
+									<select class="custom-select" name="paletPosition"
+										id="paletPosition">
+										<option th:value="1" th:text="1" />
+										<option th:value="2" th:text="2" />
+										<option th:value="3" th:text="3" />
+										<option th:value="4" th:text="4" />
+									</select>
+								</div></td>
+							<td style="padding-left: 10px"><button type="submit"
+									class="btn btn-success"
 									style="height: 28px; margin-bottom: 10px;">Tìm kiếm</button></td>
 
-				</tr>
-			</table>
+						</tr>
+					</table>
 				</form>
+
+			</div>
+		</div>
+		<span th:text="${msg}"></span>
 		<a th:if="not ${id}" th:text="${id}"></a>
 		<div th:if="${not #lists.isEmpty(page)}" class="row">
-		
-			<table class="table table-striped">
-				<tr>
 
-					<th class="th">Số thứ tự</th>
-					<th class="th">Tên Khu vực</th>
-					<th class="th">Số Pallet</th>
-					<th class="th">Pallet position id</th>
-					<th class="th">Sức chứa</th>
-					<th class="th">Sản phẩm</th>
-				</tr>
+			<table class="table table-striped" style="text-align: center;">
+				<thead>
+					<tr style="font-weight: 800; font-size: 12px;">
 
-				<tr th:each="palletposition, iStat : ${page.content}">
-					<td th:text="${palletposition.id}" />
-					<td th:text="${palletposition.areaId}" />
-					<td th:text="${palletposition.palletNumber}" />
-					<td th:text="${palletposition.id}" />
-					<td><span th:text="${100-palletposition.emptyPercent}" ></span>%</td>
+						<th class="th">Số thứ tự</th>
+						<th class="th">Tên Khu vực</th>
+						<th class="th">Số Pallet</th>
+						<th class="th">Pallet position id</th>
+						<th class="th">Sức chứa</th>
+						<th class="th">Chọn</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="palletposition, iStat : ${page.content}">
+						<td th:text="${palletposition.id}" />
+						<td th:text="${palletposition.areaId}" />
+						<td th:text="${palletposition.palletNumber}" />
+						<td th:text="${palletposition.id}" />
+						<td th:text="${palletposition.emptyPercent}" />
+						  <td> <a id="myBtn" class="btn btn-success" th:href="${'/moveposition/' + palletposition.id}"><i class="fa fa-retweet"></i></a>
+					<div id="myModal" class="modal">
+								<div class="modal-content" style="width: 33%">
+									<p>Bạn có muốn chuyển vị trí không?</p>
+									<form >
+										<button type="submit" class="btn btn-success" name="idpallet">Đồng ý</button>
+										
+									</form>
+								</div>
 
-					<td th:if="${palletposition.product}"
-						th:text="${palletposition.product}"></td>
-					<td th:unless="${palletposition.product}"></td>
-				</tr>
+							</div>
+
+
+
+						</td>
+
+					</tr>
+				</tbody>
 			</table>
+
+			<!-- Ban Coa muon chuyen vi tri moi khọg -->
+
 
 			<div class="pagination-div">
 				<span th:if="${page.hasPrevious()}"> <a
@@ -267,8 +310,8 @@ span.selected {
 			</div>
 		</div>
 	</article>
-	<div class="footer">Copyright &copy; Feature Solution Company
-		2019</div>
+	<div class="footer" style="bottom: 0px">Copyright &copy; Feature
+		Solution Company 2019</div>
 
 
 
@@ -299,11 +342,8 @@ span.selected {
 		};
 		$(window).on('load', function() {
 			$('#exampleModalCenter').modal('show');
-			
-			var area = getCookie("area");
-			if(area ){
-				$('#areaId').val(area);
-			}
+
+			var area = getCookie(area);
 			console.log(area);
 			var percent = getCookie("percent");
 			if(percent ){
@@ -363,6 +403,33 @@ span.selected {
 			}
 			return "";
 		};
+	</script>
+	<script>
+		// Get the modal
+		var modal = document.getElementById("myModal");
+
+		// Get the button that opens the modal
+		var btn = document.getElementById("myBtn");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks the button, open the modal 
+		btn.onclick = function() {
+			modal.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
