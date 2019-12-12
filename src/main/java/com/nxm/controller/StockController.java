@@ -319,6 +319,7 @@ public class StockController {
 
 			Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos.subList(min, max), pageable,
 					total);
+			model.addAttribute("stockTotalDetail",pageImpianto.getContent());
 			model.addAttribute("page", pageImpianto);
 			String chotkho = "Thông tin tồn kho sản phẩm bạn tìm kiếm như sau";
 			model.addAttribute("chotkho", chotkho);
