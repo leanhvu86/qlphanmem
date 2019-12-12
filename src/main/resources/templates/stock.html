@@ -189,7 +189,7 @@ span.selected {
 							<td style="text-align: center; padding-bottom: 10px">Tên sản
 								phẩm</td>
 							<td><div class="input-group mb-3">
-									<select class="custom-select" id="inputGroupSelect03"
+									<select class="custom-select" id="nameproduct"
 										aria-label="Example select with button addon"
 										name="nameproduct">
 										<option value="">Chọn sản phẩm</option>
@@ -201,7 +201,7 @@ span.selected {
 							<td style="text-align: center; padding-bottom: 10px">Nhãn
 								hiệu</td>
 							<td><div class="input-group mb-3">
-									<select class="custom-select" id="inputGroupSelect03"
+									<select class="custom-select" id="brandid"
 										aria-label="Example select with button addon" name="namebrand">
 										<option value="">Chọn Nhãn Hiệu</option>
 										<option th:each="country : ${brand}" th:value="${country.id}"
@@ -213,7 +213,7 @@ span.selected {
 							<td style="text-align: center; padding-bottom: 10px">Loại
 								sản phẩm</td>
 							<td><div class="input-group mb-3">
-									<select class="custom-select" id="inputGroupSelect03"
+									<select class="custom-select" id="typename"
 										aria-label="Example select with button addon" name="typename">
 										<option value="">Chọn Loại Sản Phẩm</option>
 										<option th:each="country : ${protype}"
@@ -605,12 +605,24 @@ span.selected {
 
 			var productId = getCookie('productId');
 			console.log(productId);
+			if(productId){
+				$('#nameproduct'),val(productId);
+			}
 			var brandId = getCookie('brandId');
 			console.log(brandId);
+			if(brandId){
+				$('#brandid'),val(brandId);
+			}
 			var typeProductId = getCookie('typeProductId');
 			console.log(typeProductId);
+			if(typeProductId){
+				$('#typename').val(typeProductId);
+			}
 			var expriedDate = getCookie('expriedDate');
 			console.log(expriedDate);
+			if(expriedDate){
+				$('#expriedDate').val(expriedDate);
+			}
 			console.log("end load trang stock");
 		});
 		$('#checkStock').click(function() {
@@ -621,21 +633,21 @@ span.selected {
 			return true;
 		});
 		$('#findProduct').click(function() {
-			var nameP = $('#inputGroupSelect03').val();
+			var nameP = $('#nameproduct').val();
 			var value = "";
 			value = nameP;
 			console.log(value);
 			var name = "productId";
 			document.cookie = name + "=" + value
 			"; path=/";
-			var brand = $('#inputGroupSelect03').val();
+			var brand = $('#brandid').val();
 			value = brand;
 			name = "brandId";
 			document.cookie = name + "=" + value
 			"; path=/";
 			console.log(value);
 
-			var typeP = $('#inputGroupSelect03').val();
+			var typeP = $('#typename').val();
 			value = typeP;
 			name = "typeProductId";
 			document.cookie = name + "=" + value
