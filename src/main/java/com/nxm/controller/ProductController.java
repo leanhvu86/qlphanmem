@@ -115,7 +115,7 @@ public class ProductController {
 		System.out.println(id);
 		Long longStock = Long.parseLong(id);
 		Long palletId = Long.parseLong(idpallet);
-		StockTotalDetail stock = service.findOne(longStock);
+		StockTotalDetail stock = stockTotalDetailService.findOne(longStock);
 		PalletPosition pallet = repo.findOne(palletId);
 		stock.setPalletPosition(pallet);
 		repository.save(stock);
