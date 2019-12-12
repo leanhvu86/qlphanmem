@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -108,7 +109,7 @@ public class ProductController {
 
 
 	@GetMapping("/moveposition/{idpallet}")
-	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response,Model model) {
+	public String movePoisition(@PathVariable("idpallet") String idpallet, Model model, HttpServletRequest response,Model model,Pageable pageable) {
 		HttpSession session = response.getSession(true);
 		String id = (String) session.getAttribute("id");
 		System.out.println(id);
