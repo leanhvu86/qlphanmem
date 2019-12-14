@@ -327,11 +327,11 @@ public class StockController {
 			return "stock";
 
 		} else {
-			Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos, pageable, (long) 0);
-			model.addAttribute("page", pageImpianto);
+			//Page<StockTotalDetail> pageImpianto = new PageImpl<StockTotalDetail>(impiantos, pageable, (long) 0);
+			//model.addAttribute("page", pageImpianto);
 			String chotkho = "Không tìm thấy tồn kho sản phẩm bạn tìm kiếm";
 			model.addAttribute("chotkho", chotkho);
-			model.addAttribute("palletpositions", pageImpianto.getContent());
+			//model.addAttribute("palletpositions", pageImpianto.getContent());
 			return "stock";
 		}
 	}
