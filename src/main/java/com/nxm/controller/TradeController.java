@@ -101,9 +101,7 @@ public class TradeController {
 	@GetMapping("/trade")
 	public String tradePageLoad(Model model, HttpServletRequest response, Pageable pageable) {
 
-		String chotkho = "";
-		chotkho = "Hoàn thành chốt kho. Vui lòng duyệt kiểm kê để kho tiếp tục hoạt động";
-		model.addAttribute("chotkho", chotkho);
+	
 		model.addAttribute("brand", brandService.getAll());
 		model.addAttribute("protype", productTypeService.getAll());
 		model.addAttribute("productList", productRepository.findAll());
