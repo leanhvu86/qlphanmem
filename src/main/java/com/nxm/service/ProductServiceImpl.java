@@ -15,7 +15,7 @@ import com.nxm.repository.ProductTypeRepository;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductRepository respository;
+	private ProductRepository productRepository;
 
 	@Autowired
 	public BrandRepositoty brandRepository;
@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public boolean create(Product product) {
 		if (product != null) {
-			respository.save(product);
+			productRepository.save(product);
 			return true;
 		}
 		return false;
@@ -41,7 +41,13 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findAll() {
 		
-		return respository.findAll();
+		return productRepository.findAll();
+	}
+
+	@Override
+	public Product findOne(long id) {
+		// TODO Auto-generated method stub
+		return productRepository.findOne(id);
 	}
 
 }

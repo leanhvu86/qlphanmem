@@ -165,7 +165,7 @@ span.selected {
 <body>
 	<!-- <div th:replace="/template/header :: header"></div> -->
 	<header class="header">
-		<img src="/images/logo.png" alt="" class="img-header"> <a
+		<img src="/images/logo.png" alt="" class="img-header" th:href="@{/}"> <a
 			style="top: 11px; position: absolute; right: 120px; color: white;"><span
 			sec:authentication="name"></span></a>
 		<form action="#" th:action="@{/logout}" method="POST"
@@ -181,7 +181,7 @@ span.selected {
 			style="max-width: 80%; margin-left: 0px;">
 			<a class="py-2 d-none d-md-inline-block" th:href="@{/stock}">QUẢN
 				LÝ TỒN KHO</a> <span></span> <a class="py-2 d-none d-md-inline-block"
-				href="#">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
+				th:href="@{/trade}">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
 				class="py-2 d-none d-md-inline-block" href="#">BÁO CÁO TỒN KHO</a> <span></span>
 			<a class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
 				LƯỢNG</a> <span></span> <a class="py-2 d-none d-md-inline-block"
@@ -262,7 +262,7 @@ span.selected {
 						<td th:text="${palletposition.areaId}" />
 						<td th:text="${palletposition.palletNumber}" />
 						<td th:text="${palletposition.id}" />
-						<td th:text="${palletposition.emptyPercent}" />
+						<td><a th:text="${100-palletposition.emptyPercent}"></a>%</td>
 						  <td> <a id="myBtn" class="btn btn-success" th:href="${'/moveposition/' + palletposition.id}"><i class="fa fa-retweet"></i></a>
 					<div id="myModal" class="modal">
 								<div class="modal-content" style="width: 33%">

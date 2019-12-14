@@ -103,7 +103,7 @@ public class ProductController {
 		repository.save(stock);
 		model.addAttribute("msg", "Đã chuyển vị trí thành công");
 		String chotkho ="";
-		chotkho = "Hoàn thành chốt kho. Vui lòng duyệt kiểm kê để kho tiếp tục hoạt động";
+		chotkho = "Chuyển vị trí tồn kho thành công";
 			model.addAttribute("chotkho", chotkho);
 			model.addAttribute("brand", brandService.getAll());
 			model.addAttribute("protype", proTypeRepository.getAll());
