@@ -105,8 +105,13 @@ public class TradeController {
 		model.addAttribute("brand", brandService.getAll());
 		model.addAttribute("protype", productTypeService.getAll());
 		model.addAttribute("productList", productRepository.findAll());
-		model.addAttribute("stockTrade", stockTradeRepository.findAll(pageable));
-		model.addAttribute("page", stockTradeRepository.findAll(pageable));
+		List<StockTrade> stockTrade=stockTradeRepository.findAll(pageable).getContent();
+		if (stockTrade!=null) {
+			model.addAttribute("stockTrade",stockTrade );
+			model.addAttribute("page", stockTradeRepository.findAll(pageable));
+		}
+		
+		
 		return "trade";
 
 	}
