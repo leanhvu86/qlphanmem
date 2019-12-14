@@ -251,7 +251,7 @@ span.selected {
 								</button>
 							</th>
 					</thead>
-					<tbody th:if="${not #lists.isEmpty(page)}">
+					<tbody th:if="${not #lists.isEmpty(stockTrade)}">
 
 						<tr th:each="stockTrade : ${stockTrade}"
 							style="font-size: 16px;">
@@ -295,7 +295,7 @@ span.selected {
  -->
 					</tbody>
 				</table>
-				<div class="pagination-div" th:if="${not #lists.isEmpty(page)}">
+				<div class="pagination-div" th:if="${not #lists.isEmpty(stockTrade)}">
 					<span th:if="${page.hasPrevious()}"> <a
 						style="text-decoration: none; width: 5px; float: left;"
 						th:href="@{/trade(page=${page.number-1},size=${page.size})}">&laquo;</a>
