@@ -499,7 +499,7 @@ font-family: 'Alatsi', sans-serif;
 header {
 	width: 100%;
 	position: relative;
-	min-height: 50px;
+	min-height: 8%;
 	background-color: #dadada;
 }
 

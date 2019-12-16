@@ -52,7 +52,7 @@
 
 	<!-- <div th:replace="/template/header :: header"></div> -->
 	<header class="header">
-		<img src="/images/logo.png" alt="" class="img-header">
+		<img src="/images/logo.png" alt="" class="img-header" th:href="@{/}">
 		<h4 style="position: absolute; right: 10%; top: 10%; color: #31b573;">
 			XIN CHÀO&#160;&#160;&#160;<span sec:authentication="name"></span>
 		</h4>
@@ -68,10 +68,10 @@
 		style="position: relative; font-family: 'Archivo Black', sans-serif; background: #31b573;">
 		<div
 			class="container d-flex flex-column flex-md-row justify-content-between"
-			style="max-width: 80%; margin-left: 0px;">
+			style="max-width: 80%; margin-left: 0px;"><a class="py-2 d-none d-md-inline-block" th:href="@{/}">TRANG CHỦ</a> <span></span> 
 			<a class="py-2 d-none d-md-inline-block" th:href="@{/stock}">QUẢN
 				LÝ TỒN KHO</a> <span></span> <a class="py-2 d-none d-md-inline-block"
-				href="#">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
+				th:href="@{/trade}">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
 				class="py-2 d-none d-md-inline-block" href="#">BÁO CÁO TỒN KHO</a> <span></span>
 			<a class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
 				LƯỢNG</a> <span></span> <a class="py-2 d-none d-md-inline-block"

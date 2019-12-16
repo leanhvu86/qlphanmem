@@ -11,4 +11,6 @@ public interface ProductService  {
 	public boolean edit(long id);
 
 	public List<Product> findAll();
+	
+	public Product findOne(long id);
 }
