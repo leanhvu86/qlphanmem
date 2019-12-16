@@ -335,44 +335,41 @@ public class StockController {
 		}
 	}
 
-	@GetMapping("/findPoisition")
-	public String findPoisition1(Model model, @PageableDefault(size = 10) Pageable pageable, @PathVariable("id") long id,
-			@RequestParam(value = "areaId", required = false) String areaId,
-			@RequestParam(value = "percent", required = false) String percent,
-			@RequestParam(value = "product", required = false) String product,
-			@RequestParam(value = "paletPosition", required = false) String paletPosition,	HttpServletRequest request) {
-		int page1 = pageable.getPageNumber();
-		int count = 10;
-		List<PalletPosition> temp = new ArrayList<>();
-		if (areaId == null && paletPosition == null) {
-			temp = palletPoisitionService.getAllPalletPoisitions(pageable).getContent();
-		} else {
-			temp = palletPoisitionService.findRecord(areaId, paletPosition);
-		}
-
-		HttpSession session = request.getSession();
-		session.setAttribute("id", String.valueOf(id));
-	
-		List<PalletPoisitonVo> impiantos = this.filterByParam(temp, areaId, percent, product, paletPosition); // returned
-		model.addAttribute("id", id); // 30
-		if (impiantos != null && impiantos.size() > 0) {
-			int min = page1 * count;
-
-			int max = (page1 + 1) * count;
-			if (max > impiantos.size()) {
-				max = impiantos.size();
-			}
-			long total = (long) temp.size();
-
-			Page<PalletPoisitonVo> pageImpianto = new PageImpl<PalletPoisitonVo>(impiantos.subList(min, max), pageable,
-					total);
-			model.addAttribute("page", pageImpianto);
-			return "findPoisition";
-		} else { // objects
-			return "findPoisition";
-		}
-
-	}
+	/*
+	 * @GetMapping("/findPoisition") public String findPoisition1(Model
+	 * model, @PageableDefault(size = 10) Pageable pageable, @PathVariable("id")
+	 * long id,
+	 * 
+	 * @RequestParam(value = "areaId", required = false) String areaId,
+	 * 
+	 * @RequestParam(value = "percent", required = false) String percent,
+	 * 
+	 * @RequestParam(value = "product", required = false) String product,
+	 * 
+	 * @RequestParam(value = "paletPosition", required = false) String
+	 * paletPosition, HttpServletRequest request) { int page1 =
+	 * pageable.getPageNumber(); int count = 10; List<PalletPosition> temp = new
+	 * ArrayList<>(); if (areaId == null && paletPosition == null) { temp =
+	 * palletPoisitionService.getAllPalletPoisitions(pageable).getContent(); } else
+	 * { temp = palletPoisitionService.findRecord(areaId, paletPosition); }
+	 * 
+	 * HttpSession session = request.getSession(); session.setAttribute("id",
+	 * String.valueOf(id));
+	 * 
+	 * List<PalletPoisitonVo> impiantos = this.filterByParam(temp, areaId, percent,
+	 * product, paletPosition); // returned model.addAttribute("id", id); // 30 if
+	 * (impiantos != null && impiantos.size() > 0) { int min = page1 * count;
+	 * 
+	 * int max = (page1 + 1) * count; if (max > impiantos.size()) { max =
+	 * impiantos.size(); } long total = (long) temp.size();
+	 * 
+	 * Page<PalletPoisitonVo> pageImpianto = new
+	 * PageImpl<PalletPoisitonVo>(impiantos.subList(min, max), pageable, total);
+	 * model.addAttribute("page", pageImpianto); return "findPoisition"; } else { //
+	 * objects return "findPoisition"; }
+	 * 
+	 * }
+	 */
 	@RequestMapping(value = "/findPoisition/{id}", method = RequestMethod.GET)
 	public String findPoisition(Model model, @PageableDefault(size = 10) Pageable pageable, @PathVariable("id") long id,
 			@RequestParam(value = "areaId", required = false) String areaId,
