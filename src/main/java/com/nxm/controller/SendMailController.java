@@ -25,7 +25,7 @@ public class SendMailController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/sendmail")
-	public String SendMail(@RequestParam("email") String email, ModelMap model,HttpServletRequest request) {
+	public String SendMail(@RequestParam("email") String email, ModelMap model, HttpServletRequest request) {
 		User user = respository.findByEmail(email);
 		if (user == null) {
 			model.addAttribute("sendmail", "Không tồn tại tài khoản trong hệ thống");
@@ -47,8 +47,8 @@ public class SendMailController {
 			model.addAttribute("sendmail", "Lỗi. Mời bạn thử lại");
 		}
 
-	return "quenmatkhau";
+		return "quenmatkhau";
 
-}
-	
+	}
+
 }
