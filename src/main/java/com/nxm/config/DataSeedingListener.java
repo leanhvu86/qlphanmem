@@ -66,28 +66,24 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		 * roleRepository.save(new Role("ROLE_MEMBER")); }
 		 * 
 		 * // Admin account if (userRepository.findByEmail("admin") == null) { // thêm
-		 * employee vào trước bằng tay Set<Employee> employees = new
-		 * HashSet<Employee>(); Long id =Long.parseLong("1"); //Employee temp =
-		 * employeeRespository.findOne(id); //employees.add(temp); User admin = new
+		 * // employee vào trước bằng tay Set<Employee> employees = new
+		 * //HashSet<Employee>(); Long id =Long.parseLong("1"); //Employee temp =
+		 * //employeeRespository.findOne(id); //employees.add(temp); User admin = new
 		 * User(); admin.setEmail("leanhvu86@gmail.com");
 		 * admin.setPassword(passwordEncoder.encode("123456")); admin.setStatus(1);
-		 * admin.setCreateDate("2019-12-01"); admin.setUpdateDate("2019-12-01");
+		 * admin.setCreateDate("2019-12-01"); admin.setUpdateDate("2019-12-01"); //
 		 * admin.setEmployees(employees); HashSet<Role> roles = new HashSet<>();
 		 * roles.add(roleRepository.findByName("ROLE_ADMIN"));
 		 * roles.add(roleRepository.findByName("ROLE_MEMBER")); admin.setRoles(roles);
 		 * userRepository.save(admin); }
+		 * 
+		 * // // // Member account if
+		 * (userRepository.findByEmail("nguyenxuanminh10@gmail.com") == null) { User
+		 * user = new User(); user.setEmail("nguyenxuanminh10@gmail.com");
+		 * user.setPassword(passwordEncoder.encode("123456")); HashSet<Role> roles = new
+		 * HashSet<>(); roles.add(roleRepository.findByName("ROLE_MEMBER"));
+		 * user.setRoles(roles); userRepository.save(user); }
 		 */
-//		
-//		// Member account
-//		if (userRepository.findByEmail("nguyenxuanminh10@gmail.com") == null) {
-//			User user = new User();
-//			user.setEmail("nguyenxuanminh10@gmail.com");
-//			user.setPassword(passwordEncoder.encode("123456"));
-//			HashSet<Role> roles = new HashSet<>();
-//			roles.add(roleRepository.findByName("ROLE_MEMBER"));
-//			user.setRoles(roles);
-//			userRepository.save(user);
-//		}
 
 		// Lưu pallet_poisition begin 2
 
