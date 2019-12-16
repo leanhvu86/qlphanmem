@@ -1,39 +1,25 @@
 package com.nxm.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nxm.model.Brand;
+
 import com.nxm.model.PalletPosition;
 import com.nxm.model.Product;
-import com.nxm.model.ProductType;
 import com.nxm.model.StockTotalDetail;
 import com.nxm.repository.BrandRepositoty;
 import com.nxm.repository.PalletPoisitionRepository;
 import com.nxm.repository.ProductRepository;
 import com.nxm.repository.ProductTypeRepository;
 import com.nxm.repository.StockTotalDetailRepository;
-import com.nxm.service.BrandService;
-import com.nxm.service.ProductService;
-import com.nxm.service.ProductTypeService;
 import com.nxm.service.StockTotalDetailService;
 
 @Controller
@@ -41,6 +27,7 @@ public class ProductController {
 	@Autowired
 	private StockTotalDetailService service;
 
+	
 	@Autowired
 	private StockTotalDetailRepository repository;
 	
@@ -114,4 +101,15 @@ public class ProductController {
 
 	}
 
+	
+	@PostMapping("/editproduct/{id}")
+	public String updateProduct(@RequestParam("id") String id,@RequestParam("")Model model) {
+		if(id!=null) {
+			Product product= productService.findOne(Long.parseLong(id));
+		model.addAttribute("productedit", product);
+		}
+		
+		
+		return "stock";
+	}
 }
