@@ -25,30 +25,38 @@ public class SendMailController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/sendmail")
-	public String SendMail(@RequestParam("email") String email, ModelMap model,HttpServletRequest request) {
+	public String SendMail(@RequestParam("email") String email, ModelMap model, HttpServletRequest request) {
 		User user = respository.findByEmail(email);
+		String text = "";
 		if (user == null) {
 			model.addAttribute("sendmail", "Không tồn tại tài khoản trong hệ thống");
-		}
-		int[] password = new int[5];
-
-		for (int i = 0; i < password.length; i++) {
-			password[i] = (int) (Math.random() * 0 + 9);
-
-		}
-		System.out.println(password.toString());
-		user.setPassword(passwordEncoder.encode(password.toString()));
-		respository.save(user);
-		String text = "Mật khẩu mới của bạn là \n " + password;
-		sendmail.sendMail(email, text);
-		if (sendmail.sendMail(email, text) == true) {
-			model.addAttribute("sendmail", "Mời bạn vào mail xác nhận mật khẩu");
 		} else {
-			model.addAttribute("sendmail", "Lỗi. Mời bạn thử lại");
+			int[] password = new int[5];
+
+			for (int i = 0; i < password.length; i++) {
+				password[i] = (int) (Math.random() * 0 + 9);
+
+			}
+			System.out.println(password.toString());
+			user.setPassword(passwordEncoder.encode(password.toString()));
+			respository.save(user);
+			text = "Mật khẩu mới của bạn là \n " + password;
+			sendmail.sendMail(email, text);
 		}
 
-	return "quenmatkhau";
+		if (!text.equals("")) {
+			if (sendmail.sendMail(email, text)==true) {
+				model.addAttribute("sendmail", "Mời bạn vào mail xác nhận mật khẩu");
+			}else {
+				model.addAttribute("sendmail", "Có lỗi trong quá trình gửi mail. Vui lòng báo CSKH");
+			}
+			
+		} else {
+			model.addAttribute("sendmail", "Email của bạn không tồn tại trong hệ thống");
+		}
 
-}
-	
+		return "quenmatkhau";
+
+	}
+
 }

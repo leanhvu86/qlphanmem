@@ -162,12 +162,13 @@ span.selected {
 		<div
 			class="container d-flex flex-column flex-md-row justify-content-between"
 			style="max-width: 80%; margin-left: 0px;">
-			<a class="py-2 d-none d-md-inline-block" th:href="@{/}">TRANG CHỦ</a> <span></span> 
-			<a class="py-2 d-none d-md-inline-block" th:href="@{/stock}">QUẢN
-				LÝ TỒN KHO</a> <span></span> <a class="py-2 d-none d-md-inline-block"
-				th:href="@{/trade}">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
-				class="py-2 d-none d-md-inline-block" href="#">BÁO CÁO TỒN KHO</a> <span></span>
-			<a class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
+			<a class="py-2 d-none d-md-inline-block" th:href="@{/}">TRANG CHỦ</a>
+			<span></span> <a class="py-2 d-none d-md-inline-block"
+				th:href="@{/stock}">QUẢN LÝ TỒN KHO</a> <span></span> <a
+				class="py-2 d-none d-md-inline-block" th:href="@{/trade}">QUẢN
+				LÝ NHẬP XUẤT</a> <span></span> <a class="py-2 d-none d-md-inline-block"
+				href="#">BÁO CÁO TỒN KHO</a> <span></span> <a
+				class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
 				LƯỢNG</a> <span></span> <a class="py-2 d-none d-md-inline-block"
 				href="#">QUẢN LÝ TÀI KHOẢN</a> <span></span>
 		</div>
@@ -282,11 +283,14 @@ span.selected {
 									class="fa fa-retweet "></span></a>
 
 							</td>
-							<td><form action="@{combo}">
-									<button type="button" class="btn btn-danger">
-										<i class="fa fa-edit"></i>
-									</button>
-								</form></td>
+							<td>
+								<button type="button" class="btn btn-danger">
+									<a data-id="ISBN" title="Add this item"
+										class="open-AddBookDialog btn btn-primary"
+										href="#addBookDialog"><i class="fa fa-edit"></i></a>
+								</button>
+
+							</td>
 						</tr>
 
 
@@ -456,7 +460,29 @@ span.selected {
 				</form>
 			</div>
 		</div>
-
+		<div class="modal fade" id="addBookDialog" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						<input type="text" name="bookId" id="bookId" value="" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save
+							changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 		<div th:if="${chotkho}">
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 				role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -603,6 +629,7 @@ span.selected {
 
 			return valid //true or false
 		};
+
 		$(window).on('load', function() {
 			$('#exampleModalCenter').modal('show');
 
