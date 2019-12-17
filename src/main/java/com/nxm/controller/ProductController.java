@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Pageable;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nxm.model.PalletPosition;
 import com.nxm.model.Product;
@@ -30,6 +34,7 @@ public class ProductController {
 	@Autowired
 	private BrandService brandService;
 
+	
 	@Autowired
 	private ProductTypeService proTypeRepository;
 	
@@ -115,4 +120,15 @@ public class ProductController {
 
 	}
 
+	
+	@PostMapping("/editproduct/{id}")
+	public String updateProduct(@RequestParam("id") String id,@RequestParam("")Model model) {
+		if(id!=null) {
+			Product product= productRepository.findOne(Long.parseLong(id));
+		model.addAttribute("productedit", product);
+		}
+		
+		
+		return "stock";
+	}
 }
