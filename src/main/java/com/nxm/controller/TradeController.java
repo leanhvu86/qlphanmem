@@ -5,15 +5,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -21,6 +26,8 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -29,14 +36,21 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nxm.model.AjaxResponseBody;
 import com.nxm.model.PalletPosition;
 import com.nxm.model.Product;
 import com.nxm.model.ProductTradeVO;
@@ -46,6 +60,7 @@ import com.nxm.model.StockTotalDetail;
 import com.nxm.model.StockTotalDetailVO;
 import com.nxm.model.StockTrade;
 import com.nxm.model.StockTradeDetail;
+import com.nxm.model.StockTradeDetailForm;
 import com.nxm.repository.BrandRepositoty;
 import com.nxm.repository.PalletPoisitionRepository;
 import com.nxm.repository.ProductRepository;
@@ -94,25 +109,47 @@ public class TradeController {
 
 	@Autowired
 	private PalletPoisitionRepository repo;
-	
+
 	@Autowired
 	private ProductTypeRepository productTypeRepository;
+	private static List<ProductTradeVO> stockTradeDetails = new ArrayList<>();
 
 	@GetMapping("/trade")
-	public String tradePageLoad(Model model, HttpServletRequest response, Pageable pageable) {
+	public String tradePageLoad(Model model, HttpServletRequest response,
+			@PageableDefault(size = 10) Pageable pageable) {
 
-	
 		model.addAttribute("brand", brandService.getAll());
 		model.addAttribute("protype", productTypeService.getAll());
 		model.addAttribute("productList", productRepository.findAll());
-		List<StockTrade> stockTrade=stockTradeRepository.findAll(pageable).getContent();
-		if (stockTrade!=null) {
-			model.addAttribute("stockTrade",stockTrade );
+		List<StockTrade> stockTrade = stockTradeRepository.findAll(pageable).getContent();
+		if (stockTrade != null) {
+			model.addAttribute("stockTrade", stockTrade);
 			model.addAttribute("page", stockTradeRepository.findAll(pageable));
 		}
-		
-		
+
 		return "trade";
+
+	}
+
+	@RequestMapping(value = "/saveTrade", method = RequestMethod.POST)
+	public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody List<String> loginForm, Errors errors) {
+
+		AjaxResponseBody result = new AjaxResponseBody();
+
+		// If error, just return a 400 bad request, along with the error message
+		if (errors.hasErrors()) {
+
+			result.setMsg(
+					errors.getAllErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.joining(",")));
+			return ResponseEntity.badRequest().body(result);
+
+		}
+
+		result.setMsg("no user found!");
+
+		result.setMsg("success");
+
+		return ResponseEntity.ok(result);
 
 	}
 
@@ -120,7 +157,8 @@ public class TradeController {
 	public String createTrade(Model model, HttpServletRequest response,
 			@RequestParam(value = "createDate", required = false) String createDate,
 			@RequestParam(value = "tradeDate", required = false) String tradeDate,
-			@RequestParam(value = "typeOfTrade", required = false) String typeOfTrade, Pageable pageable) {
+			@RequestParam(value = "typeOfTrade", required = false) String typeOfTrade,
+			@PageableDefault(size = 10) Pageable pageable) {
 		String status = "";
 		if (tradeDate != null && !tradeDate.equals("") && typeOfTrade != null && !typeOfTrade.equals("")) {
 
@@ -201,7 +239,7 @@ public class TradeController {
 	@PostMapping("/importExcelTrade")
 	public String mapReapExcelDatatoDB(HttpServletRequest httpServletRequest, HttpServletResponse response,
 			@RequestParam("file") MultipartFile reapExcelDataFile, Model model,
-			@PageableDefault(size = 10) Pageable pageable) throws IOException, IllegalStateException {
+			@PageableDefault(size = 10) Pageable pageable) throws IOException, IllegalStateException, ParseException {
 		StockTrade stockTrade = new StockTrade();
 		ReadingFromExcelSheet readingFromExcelSheet = new ReadingFromExcelSheet();
 		XSSFWorkbook workbook = new XSSFWorkbook(reapExcelDataFile.getInputStream());
@@ -231,21 +269,18 @@ public class TradeController {
 							productTradeVO.setProductId((int) Math.round(Double.parseDouble(value)));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
-							msg += "Mã sản phẩm không hợp lệ";
+							msg += "Mã sản phẩm không hợp lệ, ";
 							checkData++;
-							continue;
 						}
 						product = productService.findOne(productTradeVO.getProductId());
 						if (product == null) {
-							msg += "Mã sản phẩm không tồn tại trong hệ thống";
+							msg += "Mã sản phẩm không tồn tại trong hệ thống, ";
 							checkData++;
-							continue;
 						}
 
 					} else {
-						msg += "Không để trống mã sản phẩm";
+						msg += "Không để trống mã sản phẩm, ";
 						checkData++;
-						continue;
 					}
 
 				}
@@ -262,9 +297,8 @@ public class TradeController {
 						productTradeVO.setBrandName(value);
 
 					} else {
-						msg += "Không để trống Nhãn hiệu";
+						msg += "Không để trống Nhãn hiệu, ";
 						checkData++;
-						continue;
 					}
 
 				}
@@ -275,15 +309,13 @@ public class TradeController {
 							productTradeVO.setTypeOfProduct(value);
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
-							msg += "Loại sản phẩm không hợp lệ";
+							msg += "Loại sản phẩm không hợp lệ, ";
 							checkData++;
-							continue;
 						}
 
 					} else {
-						msg += "Không để trống loại sản phẩm";
+						msg += "Không để trống loại sản phẩm, ";
 						checkData++;
-						continue;
 					}
 
 				}
@@ -295,22 +327,33 @@ public class TradeController {
 							productTradeVO.setQuantity((int) Math.round(Double.parseDouble(value)));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
-							msg += "Số lượng không hợp lệ";
+							msg += "Số lượng không hợp lệ, ";
 							checkData++;
-							continue;
 						}
 					} else {
-						msg += "Không để trống số lượng";
+						msg += "Không để trống số lượng, ";
 						checkData++;
-						continue;
 					}
 				}
 				if (cell != null && cellIndex == 5) {
-					value = readingFromExcelSheet.getCellValue(cell);
-					if (!value.equals("")) {
-						productTradeVO.setExpiredDate(value);
+					String expiredDate = "";
+					DataFormatter formatter1 = new DataFormatter();
+					expiredDate = formatter1.formatCellValue(cell);
+					/*
+					 * if (DateUtil.isCellDateFormatted(cell)) { expiredDate1 =
+					 * cell.getDateCellValue(); } else { expiredDate = cell.getStringCellValue(); }
+					 */
+					if (!expiredDate.equals("")) {
+						try {
+							SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+							expiredDate = formatter.format(expiredDate);
+							productTradeVO.setExpiredDate(expiredDate);
+						} catch (Exception e) {
+							msg += "Không đúng định dạng ngày tháng, ";
+						}
+
 					} else {
-						msg += "Không để trống ngày hết hạn";
+						msg += "Không để trống ngày hết hạn, ";
 						checkData++;
 					}
 				}
@@ -321,12 +364,11 @@ public class TradeController {
 							productTradeVO.setStockTradeId((long) Math.round(Double.parseDouble(value)));
 						} catch (NumberFormatException e) {
 							e.printStackTrace();
-							msg += "Mã giao dịch kho không hợp lệ";
+							msg += "Mã giao dịch kho không hợp lệ, ";
 							checkData++;
-							continue;
 						}
 					} else {
-						msg += "Không để trống mã giao dịch kho kho";
+						msg += "Không để trống mã giao dịch kho kho, ";
 						checkData++;
 					}
 				}
@@ -339,34 +381,59 @@ public class TradeController {
 				}
 
 			}
-			if (msg.equals("")) {
+			if (msg.equals("") && productTradeVO.getStockTradeId() != null) {
 				stockTrade = stockTradeRepository.findOne(productTradeVO.getStockTradeId());
 				if (stockTrade != null) {
 					List<StockTradeDetail> lstStockTradeDetail = stockTradeDetailRepository
 							.findByStockTrade(stockTrade);
-					if (lstStockTradeDetail != null) {
+					if (lstStockTradeDetail != null && lstStockTradeDetail.size() > 0) {
+						boolean checkExistTrade = false;
 						for (StockTradeDetail stockTradeDetailOld : lstStockTradeDetail) {
-							if (stockTradeDetailOld.getProduct().getId() == productTradeVO.getProductId()
-									&& stockTradeDetailOld.getExpiredDate().equals(productTradeVO.getExpiredDate())) {
+							String expiredDateOld = stockTradeDetailOld.getExpiredDate();
+							String expiredDateNew = productTradeVO.getExpiredDate();
+							SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+							Date old = null;
+							Date newDate = null;
+							try {
+								old = sdf.parse(expiredDateOld);
+								newDate = sdf.parse(expiredDateNew);
+							} catch (ParseException e) {
+								lstFail.add(productTradeVO);
+								e.printStackTrace();
+								break;
+							}
+							long productIdOld = stockTradeDetailOld.getProduct().getId();
+							long productIdNew = productTradeVO.getProductId();
+							if (productIdOld == productIdNew && old.compareTo(newDate) == 0) {
 								long amount = 0;
-								amount = productTradeVO.getQuantity() * product.getPrice();
+								amount = (productTradeVO.getQuantity() + stockTradeDetailOld.getQuantity())
+										* product.getPrice();
 								stockTradeDetailOld.setAmount(Long.toString(amount));
 								stockTradeDetailOld.setProduct(product);
-								stockTradeDetailOld.setQuantity(productTradeVO.getQuantity());
+								stockTradeDetailOld.setQuantity(
+										(productTradeVO.getQuantity() + stockTradeDetailOld.getQuantity()));
 								stockTradeDetailOld.setUserUpdateId(1);
+								stockTradeDetailOld.setExpiredDate(productTradeVO.getExpiredDate());
 								stockTradeDetailRepository.save(stockTradeDetailOld);
-							} else {
-								StockTradeDetail stockTradeDetailNew = new StockTradeDetail();
-								long amount = 0;
-								amount = productTradeVO.getQuantity() * product.getPrice();
-								stockTradeDetailNew.setStockTrade(stockTrade);
-								stockTradeDetailNew.setAmount(Long.toString(amount));
-								stockTradeDetailNew.setProduct(product);
-								stockTradeDetailNew.setQuantity(productTradeVO.getQuantity());
-								stockTradeDetailNew.setUserCreateId(1);
-								stockTradeDetailNew.setExpiredDate(productTradeVO.getExpiredDate());
-								stockTradeDetailRepository.save(stockTradeDetailNew);
+								System.out.println("Khớp update " + "Mã sản phẩm: " + productTradeVO.getProductId()
+										+ "Ngày hết hạn: " + productTradeVO.getExpiredDate());
+								checkExistTrade = true;
+								continue;
 							}
+						}
+						if (checkExistTrade == false) {
+							StockTradeDetail stockTradeDetailNew = new StockTradeDetail();
+							long amount = 0;
+							amount = productTradeVO.getQuantity() * product.getPrice();
+							stockTradeDetailNew.setStockTrade(stockTrade);
+							stockTradeDetailNew.setAmount(Long.toString(amount));
+							stockTradeDetailNew.setProduct(product);
+							stockTradeDetailNew.setQuantity(productTradeVO.getQuantity());
+							stockTradeDetailNew.setUserCreateId(1);
+							stockTradeDetailNew.setExpiredDate(productTradeVO.getExpiredDate());
+							stockTradeDetailRepository.save(stockTradeDetailNew);
+							System.out.println("Thêm mới " + "Mã sản phẩm: " + productTradeVO.getProductId()
+									+ "Ngày hết hạn: " + productTradeVO.getExpiredDate());
 						}
 					} else {
 						StockTradeDetail stockTradeDetailNew = new StockTradeDetail();
@@ -379,6 +446,8 @@ public class TradeController {
 						stockTradeDetailNew.setUserCreateId(1);
 						stockTradeDetailNew.setExpiredDate(productTradeVO.getExpiredDate());
 						stockTradeDetailRepository.save(stockTradeDetailNew);
+						System.out.println(" đầu tiên Thêm mới" + "Mã sản phẩm: " + productTradeVO.getProductId()
+								+ "Ngày hết hạn: " + productTradeVO.getExpiredDate());
 					}
 				} else {
 					msg += "Mã giao dịch kho không hợp lệ";
@@ -396,27 +465,38 @@ public class TradeController {
 		if (lstFail.size() == 0) {
 
 			chotkho = "Hoàn thành thông tin đơn giao dịch kho. Vui lòng liên hệ ban quản trị để xét duyệt";
-			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("status", chotkho);
 			model.addAttribute("brand", brandService.getAll());
 			model.addAttribute("protype", productTypeService.getAll());
-			model.addAttribute("product", new Product());
 			model.addAttribute("productList", productRepository.findAll());
-			model.addAttribute("stockTrade", stockTradeRepository.findAll(pageable));
-			model.addAttribute("page", stockTradeRepository.findAll(pageable));
-			return "stock";
+			model.addAttribute("product", new Product());
+			List<StockTrade> stockTrade1 = stockTradeRepository.findAll(pageable).getContent();
+			if (stockTrade != null) {
+				model.addAttribute("stockTrade", stockTrade1);
+				model.addAttribute("page", stockTradeRepository.findAll(pageable));
+			}
+
+			return "trade";
 		} else {
 			if (lstFail.size() != 0) {
 				model.addAttribute("compare", "Chênh lệch: " + lstFail.size());
 			}
 			chotkho = "Chưa hoàn thành nhập thông tin đơn giao dịch kho. Vui lòng kiểm tra file Excel chốt kho";
-			model.addAttribute("chotkho", chotkho);
+			model.addAttribute("status", chotkho);
 			model.addAttribute("brand", brandService.getAll());
 			model.addAttribute("protype", productTypeService.getAll());
 			model.addAttribute("product", new Product());
-			model.addAttribute("lstFail", lstFail);
+			model.addAttribute("stockTradeDetails", lstFail);
 			model.addAttribute("productList", productRepository.findAll());
-			model.addAttribute("stockTrade", stockTradeRepository.findAll(pageable));
-			model.addAttribute("page", stockTradeRepository.findAll(pageable));
+			model.addAttribute("brand", brandService.getAll());
+			model.addAttribute("protype", productTypeService.getAll());
+			model.addAttribute("productList", productRepository.findAll());
+			List<StockTrade> stockTrade1 = stockTradeRepository.findAll(pageable).getContent();
+			if (stockTrade != null) {
+				model.addAttribute("stockTrade", stockTrade1);
+				model.addAttribute("page", stockTradeRepository.findAll(pageable));
+			}
+
 			// exportFile(httpServletRequest, response, "Bieu_mau_chot_kho_loi", lstFail);
 		}
 

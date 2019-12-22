@@ -71,6 +71,92 @@
 	);
 }
 
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	position: relative;
+	background-color: #fefefe;
+	margin: auto;
+	padding: 0;
+	border: 1px solid #888;
+	width: 80%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0
+		rgba(0, 0, 0, 0.19);
+	-webkit-animation-name: animatetop;
+	-webkit-animation-duration: 0.4s;
+	animation-name: animatetop;
+	animation-duration: 0.4s
+}
+
+/* Add Animation */
+@
+-webkit-keyframes animatetop {
+	from {top: -300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+@
+keyframes animatetop {
+	from {top: -300px;
+	opacity: 0
+}
+
+to {
+	top: 0;
+	opacity: 1
+}
+
+}
+
+/* The Close Button */
+.close {
+	color: white;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.modal-header {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
+.modal-body {
+	padding: 2px 16px;
+}
+
+.modal-footer {
+	padding: 2px 16px;
+	background-color: #5cb85c;
+	color: white;
+}
+
 .btn-3 {
 	background-color: silver;
 	border-radius: 0;
@@ -141,6 +227,7 @@ span.selected {
 	background: green;
 }
 </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<!-- <div th:replace="/template/header :: header"></div> -->
@@ -161,21 +248,21 @@ span.selected {
 		style="position: relative; font-family: 'Archivo Black', sans-serif; background: #31b573;">
 		<div
 			class="container d-flex flex-column flex-md-row justify-content-between"
-			style="max-width: 80%; margin-left: 0px;"><a class="py-2 d-none d-md-inline-block" th:href="@{/}">TRANG CHỦ</a> <span></span> 
-			<a class="py-2 d-none d-md-inline-block" th:href="@{/stock}">QUẢN
-				LÝ TỒN KHO</a> <span></span> <a class="py-2 d-none d-md-inline-block"
-				th:href="@{/trade}">QUẢN LÝ NHẬP XUẤT</a> <span></span> <a
-				class="py-2 d-none d-md-inline-block" href="#">BÁO CÁO TỒN KHO</a> <span></span>
-			<a class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
+			style="max-width: 80%; margin-left: 0px;">
+			<a class="py-2 d-none d-md-inline-block" th:href="@{/}">TRANG CHỦ</a>
+			<span></span> <a class="py-2 d-none d-md-inline-block"
+				th:href="@{/stock}">QUẢN LÝ TỒN KHO</a> <span></span> <a
+				class="py-2 d-none d-md-inline-block" th:href="@{/trade}">QUẢN
+				LÝ NHẬP XUẤT</a> <span></span> <a class="py-2 d-none d-md-inline-block"
+				href="#">BÁO CÁO TỒN KHO</a> <span></span> <a
+				class="py-2 d-none d-md-inline-block" href="#">QUẢN LÝ DUNG
 				LƯỢNG</a> <span></span> <a class="py-2 d-none d-md-inline-block"
 				href="#">QUẢN LÝ TÀI KHOẢN</a> <span></span>
 		</div>
 	</nav>
 
 	<article>
-		<div th:if="${status != null}" id="status"
-			style="width: 100%; height: 30px; color: #1184bb;  font-size: 20px;">
-			<h4 th:text="${status}"></h4></div>
+
 		<!-- <div th:if="${status == null}"
 			style="width: 100%; height: 30px; background: #f5ff8b; color: black; font-size: 20px;">TRẠNG
 			THÁI: Đang kiểm kê, chốt kho</div> -->
@@ -188,7 +275,8 @@ span.selected {
 
 					<table style="width: 100%; text-align: center;">
 						<tr>
-							<td style="text-align: center; padding-bottom: 10px">Mã đơn giao dịch</td>
+							<td style="text-align: center; padding-bottom: 10px">Mã đơn
+								giao dịch</td>
 							<td><div class="input-group mb-3">
 									<select class="custom-select" id="nameproduct"
 										aria-label="Example select with button addon"
@@ -199,7 +287,8 @@ span.selected {
 											th:name="productId" />
 									</select>
 								</div></td>
-							<td style="text-align: center; padding-bottom: 10px">Trạng thái đơn</td>
+							<td style="text-align: center; padding-bottom: 10px">Trạng
+								thái đơn</td>
 							<td><div class="input-group mb-3">
 									<select class="custom-select" id="brandid"
 										aria-label="Example select with button addon" name="namebrand">
@@ -228,7 +317,8 @@ span.selected {
 										id="fromDate" aria-label="Username"
 										aria-describedby="basic-addon1" name="fromDate">
 								</div></td>
-							<td style="text-align: center; padding-bottom: 10px">Đến ngày</td>
+							<td style="text-align: center; padding-bottom: 10px">Đến
+								ngày</td>
 							<td><div class="input-group mb-3">
 
 									<input type="date" class="form-control" placeholder="đến ngày"
@@ -241,7 +331,10 @@ span.selected {
 					</table>
 				</form>
 				<span th:text="${mgs}"></span>
-
+				<div th:if="${status != null}" id="status"
+					style="width: 100%; height: 30px; color: #1184bb; font-size: 20px;">
+					<h4 th:text="${status}"></h4>
+				</div>
 				<table class="table table-striped" style="text-align: center;">
 					<thead>
 						<tr style="font-weight: 800; font-size: 12px;">
@@ -260,15 +353,13 @@ span.selected {
 					</thead>
 					<tbody th:if="${not #lists.isEmpty(stockTrade)}">
 
-						<tr th:each="stockTrade : ${stockTrade}"
-							style="font-size: 16px;">
+						<tr th:each="stockTrade : ${stockTrade}" style="font-size: 16px;">
 							<td scope="col" th:text="${stockTrade.id}"></td>
 							<td th:text="${stockTrade.createDate}"></td>
 							<td th:text="${stockTrade.tradeDate}"></td>
 							<td th:if="${stockTrade.typeOfTrade ==1}">Đơn nhập</td>
 							<td th:if="${stockTrade.typeOfTrade ==2}">Đơn xuất</td>
-							<td th:text="${stockTrade.userId}"
-								style="max-width: 20%;"></td>
+							<td th:text="${stockTrade.userId}" style="max-width: 20%;"></td>
 							<td th:if="${stockTrade.approved ==0}">Chờ duyệt</td>
 							<td th:if="${stockTrade.approved ==1}">Đã duyệt</td>
 							<td th:if="${stockTrade.approved ==2}">Từ chối</td>
@@ -302,7 +393,8 @@ span.selected {
  -->
 					</tbody>
 				</table>
-				<div class="pagination-div" th:if="${not #lists.isEmpty(stockTrade)}">
+				<div class="pagination-div"
+					th:if="${not #lists.isEmpty(stockTrade)}">
 					<span th:if="${page.hasPrevious()}"> <a
 						style="text-decoration: none; width: 5px; float: left;"
 						th:href="@{/trade(page=${page.number-1},size=${page.size})}">&laquo;</a>
@@ -339,9 +431,10 @@ span.selected {
 															<td>
 																<div class="input-group mb-3">
 
-																	<input type="date" class="form-control" placeholder="Username"
-																		id="createDate" aria-label="Username"
-																		aria-describedby="basic-addon1" name="createDate">
+																	<input type="date" class="form-control"
+																		placeholder="Username" id="createDate"
+																		aria-label="Username" aria-describedby="basic-addon1"
+																		name="createDate">
 																</div>
 
 															</td>
@@ -350,8 +443,8 @@ span.selected {
 															<td>Ngày giao dịch</td>
 															<td>
 																<div class="input-group mb-3">
-																	<input type="date" class="form-control" placeholder="Username"
-																		id="" aria-label="Username"
+																	<input type="date" class="form-control"
+																		placeholder="Username" id="" aria-label="Username"
 																		aria-describedby="basic-addon1" name="tradeDate">
 																</div>
 															</td>
@@ -407,46 +500,66 @@ span.selected {
 				</form>
 			</div>
 		</div>
+		<div id="myModal" class="modal" th:if="${stockTradeDetails}">
 
-		<div th:if="${chotkho}">
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-				role="dialog" aria-labelledby="exampleModalCenterTitle"
-				aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title" id="exampleModalCenterTitle"
-								th:if="${chotkho}" th:text="${chotkho}"></h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<h3 class="modal-title" id="exampleModalCenterTitle"
-								th:text="${chotkho}" th:if="${chotkho}"></h3>
-							<h3 class="modal-title" id="modalCenterTitle"></h3>
-							<div th:if="${compare}">
-								<h4 class="modal-title" id="exampleModalCenterTitle"
-									th:text="${compare}" style="color: red;"></h4>
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 style="margin-left: 50%;">Kiểm tra thông tin sản phẩm</h2>
+					<span class="close">&times;</span>
+				</div>
+				<div class="modal-body">
+					<div th:if="${stockTradeDetails}">
 
-								<form action="/exportExcelCompare" method="get"
-									style="width: 20%; float: left;">
-									<button class="btn btn-info" type="submit"
-										style="width: 100%; background-color: #a2fca8; color: black; font-weight: bold;">Kiểm
-										tra</button>
-								</form>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Đóng</button>
-						</div>
+						<table class="update" style="text-align: center; width: 1250px;">
+							<thead>
+								<tr style="font-weight: 800; font-size: 12px; width: 1250px;">
+									<td style="width: 60px;">Mã SP</td>
+									<td style="width: 200px;">Tên SP</td>
+									<td style="width: 100px;">Nhãn hiệu</td>
+									<td style="width: 130px;">Loại SP</td>
+									<td style="width: 100px;">Số lượng</td>
+									<td style="width: 130px;">Ngày hết hạn</td>
+									<td style="width: 130px;">Mã GD kho</td>
+									<td style="width: 160px;">Thông tin lỗi</td>
+							</thead>
+							<tbody th:if="${not #lists.isEmpty(stockTradeDetails)}">
+
+								<tr th:each="productTradeVO : ${stockTradeDetails}"
+									style="font-size: 12px; width: 1250px;">
+									<td class="productId" style="width: 40px;"><input
+										type="text" style="width: 40px;"
+										th:value="${productTradeVO.productId}" /></td>
+									<td style="width: 200px;"><input type="text"
+										style="width: 200px;" th:value="${productTradeVO.productName}" /></td>
+									<td style="width: 100px;"><input type="text"
+										style="width: 100px;" th:value="${productTradeVO.brandName}" /></td>
+									<td style="width: 150px;"><input type="text"
+										style="width: 150px;"
+										th:value="${productTradeVO.typeOfProduct}" /></td>
+									<td class="quantity" style="width: 40px;"><input
+										type="number" style="width: 40px;"
+										th:value="${productTradeVO.quantity}" /></td>
+									<td style="width: 150px;"><input type="date"
+										style="width: 150px;" th:value="${productTradeVO.expiredDate}" /></td>
+									<td style="width: 40px;"><input type="number"
+										style="width: 40px;" th:value="${productTradeVO.stockTradeId}" /></td>
+									<td style="width: 400px;"><input type="text"
+										style="color: red; width: 400px; font-size: 10px; overflow: auto; font-weight: bold;"
+										th:value="${productTradeVO.error}" /></td>
+								</tr>
+
+							</tbody>
+						</table>
+						<button class="btn btn-info" type="submit" onclick="saveData()"
+							style="width: 20%; margin-left: 40%; background-color: #a2fca8; color: black; font-weight: bold;">Lưu
+							sản phẩm</button>
 					</div>
 				</div>
 			</div>
+
 		</div>
-		
+
 		<div class="row row-cols-3" style="margin-bottom: 3%;">
 			<div class="col">
 				<form action="/exportExcelTrade" method="get"
@@ -487,8 +600,8 @@ span.selected {
 		</div>
 
 	</article>
-	<footer class="footer" >Copyright &copy; Feature Solution Company
-		2019</footer>
+	<footer class="footer">Copyright &copy; Feature Solution
+		Company 2019</footer>
 
 
 
@@ -501,10 +614,53 @@ span.selected {
 	<script src="vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
 	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js" type="text/javascript"></script>
 	<script>
-		$('.js-tilt').tilt({
-			scale : 1.1
-		});
+		var TableData = new Array();
+		function saveData() {
+			$('.update tr').each(function(row, tr) {
+				TableData[row] = {
+					"masp" : $(tr).find('td:eq(0) input').val(),
+					"tensp" : $(tr).find('td:eq(1) input').val(),
+					"brandName" : $(tr).find('td:eq(2) input').val(),
+					"typeOfProduct" : $(tr).find('td:eq(3) input').val(),
+					"quantity" : $(tr).find('td:eq(4) input').val(),
+					"expiredDate" : $(tr).find('td:eq(5) input').val(),
+					"stockTradeId" : $(tr).find('td:eq(6) input').val()
+				}
+			});
+			TableData.shift();
+			console.log(JSON.stringify(TableData));
+			 $.ajax({
+			        type: "POST",
+			        contentType : "application/json",
+					url : "/saveTrade",
+					data : TableData,
+			        cache: false,
+			        timeout: 1000000,
+			        success: function(e) {
+			 
+			        	var json = "<h4>Lưu sản phẩm thành công</h4><pre>"
+							+ JSON.stringify(data, null, 4) + "</pre>";
+					$('#status').html(json);
+
+					console.log("SUCCESS : ", data);
+			        },
+			        error: function(e) {  
+			 
+			        	var json = "<h4>Lưu thông tin lỗi: </h4><pre>"
+							+ e.responseText + "</pre>";
+					$('#status').html(json);
+
+					console.log("ERROR : ", e);
+
+			 
+			        }
+			    });
+		};
+
 		function validate() {
 
 			valid = true;
@@ -517,28 +673,28 @@ span.selected {
 
 			return valid //true or false
 		};
+		var modal = document.getElementById("myModal");
 		$(window).on('load', function() {
-		
+			modal.style.display = "block";
 			$('#exampleModalCenter').modal('show');
-
 			var productId = getCookie('productId');
 			console.log(productId);
-			if(productId){
+			if (productId) {
 				$('#nameproduct').val(productId);
 			}
 			var brandId = getCookie('brandId');
 			console.log(brandId);
-			if(brandId){
+			if (brandId) {
 				$('#brandid').val(brandId);
 			}
 			var typeProductId = getCookie('typeProductId');
 			console.log(typeProductId);
-			if(typeProductId){
+			if (typeProductId) {
 				$('#typename').val(typeProductId);
 			}
 			var expriedDate = getCookie('expriedDate');
 			console.log(expriedDate);
-			if(expriedDate){
+			if (expriedDate) {
 				$('#expriedDate').val(expriedDate);
 			}
 			console.log("end load trang stock");
@@ -550,6 +706,17 @@ span.selected {
 			}
 			return true;
 		});
+		var span = document.getElementsByClassName("close")[0];
+		span.click(function() {
+			modal.style.display = "none";
+		});
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
 		$('#findProduct').click(function() {
 			var nameP = $('#nameproduct').val();
 			var value = "";
@@ -596,10 +763,15 @@ span.selected {
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
 	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script
 		src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 	<script
 		src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
